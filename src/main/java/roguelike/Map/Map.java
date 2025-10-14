@@ -1,4 +1,4 @@
-package roguelike.Map;
+package roguelike.map;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,4 +55,6 @@ public class Map {
         }
         System.out.println(border);
     }
+
+    public List<List<Tile>> getMap() { return this.mapTiles; }
 }

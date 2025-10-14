@@ -1,4 +1,4 @@
-package roguelike.Map;
+package roguelike.map;
 
 public class Tile {
     private TileType type;
@@ -13,5 +13,6 @@ public class Tile {
                  (type == TileType.MOUNTAIN) ? "M" : "?";
     }
 
+    public TileType getType() { return this.type; }
     public String getSymbol() { return this.symbol; }
 }

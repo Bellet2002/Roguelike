@@ -1,6 +1,6 @@
 package roguelike;
 
-import roguelike.Map.Map;
+import roguelike.map.Map;
 
 public class App 
 {
