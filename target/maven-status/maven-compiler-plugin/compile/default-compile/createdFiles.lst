@@ -1,0 +1,4 @@
+roguelike\map\Map.class
+roguelike\map\Tile.class
+roguelike\App.class
+roguelike\map\TileType.class
