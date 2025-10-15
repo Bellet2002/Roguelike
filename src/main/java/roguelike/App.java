@@ -1,12 +1,12 @@
 package roguelike;
 
-import roguelike.map.Map;
+import roguelike.map.GameMap;
 
 public class App 
 {
     public static void main( String[] args )
     {
-        Map map = new Map(15, 10);
+        GameMap map = new GameMap(15, 10, true);
         map.displayMap();
     }
 }
