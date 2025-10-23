@@ -1,12 +1,15 @@
 package roguelike.effect;
 
 import roguelike.character.Character;
-import roguelike.item.Item;
 
-public class DefenseEffect implements Effect {
+public class DefenseEffect extends AbstractEffect {
+    
+    public DefenseEffect(int amount) {
+        super(amount);
+    }
+
     @Override
-    public void apply(Character character, Item item) {
-        //What should the logic be? Ex. Defense boost via character attribute
-        //or character takes less damage when attacked?
+    public void apply(Character character) {
+    
     }
 }

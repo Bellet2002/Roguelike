@@ -9,11 +9,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
-import roguelike.Character;
-import roguelike.effect.AttackEffect;
-import roguelike.effect.DefenseEffect;
+import roguelike.character.Character;
 import roguelike.effect.HealingEffect;
-import roguelike.item.CreateItem;
+import roguelike.item.Consumable;
+import roguelike.item.Equipment;
 import roguelike.item.Item;
 import roguelike.item.ItemType;
 import roguelike.npc.HostileNPC;
@@ -35,8 +34,8 @@ public class NPCTest {
 
     @Test
     public void testHostileNPCDropsItems() {
-        Item sword = new CreateItem("Sword", 10, ItemType.WEAPON, 1, new AttackEffect());
-        Item potion = new CreateItem("Potion", 20, ItemType.POTION, 1, new HealingEffect());
+        Equipment sword = new Equipment("Sword", ItemType.WEAPON, 1, 10);
+        Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
         List<Item> drops = List.of(sword, potion);
 
         HostileNPC monster = new HostileNPC("Monster", 500, 10, 5, drops);
@@ -59,8 +58,8 @@ public class NPCTest {
 
     @Test
     public void testNonHostileNPCWithLootConstructor() {
-        Item potion = new CreateItem("Potion", 20, ItemType.POTION, 1, new HealingEffect());
-        Item sword = new CreateItem("Sword", 10, ItemType.WEAPON, 1, new AttackEffect());
+        Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
+        Equipment sword = new Equipment("Sword", ItemType.WEAPON, 1, 20);
         List<Item> loot = List.of(potion, sword);
 
         NonHostileNPC chest = new NonHostileNPC("Chest", loot);
@@ -76,7 +75,7 @@ public class NPCTest {
 
     @Test
     public void testNonHostileNPCWithShopConstructor() {
-        Item potion = new CreateItem("Potion", 20, ItemType.POTION, 1, new HealingEffect());
+        Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
         Map<Item, Integer> shop = Map.of(potion, 50);
 
         NonHostileNPC merchant = new NonHostileNPC("Merchant", shop);
@@ -89,30 +88,30 @@ public class NPCTest {
         assertEquals(50, merchant.getShopItems().get(potion));
     }
 
-    @Test
+    /*@Test
     public void testNonHostileNPCGivesLoot() {
-        Item potion = new CreateItem("Potion", 20, ItemType.POTION, 1, new HealingEffect());
-        Item sword = new CreateItem("Sword", 10, ItemType.WEAPON, 1, new AttackEffect());
-        Item armor = new CreateItem("Armor", 5, ItemType.ARMOR, 1, new DefenseEffect());
+        Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
+        Equipment sword = new Equipment("Sword", ItemType.WEAPON, 1, 10);
+        Equipment armor = new Equipment("Armor", ItemType.ARMOR, 1, 15);
 
         NonHostileNPC chest = new NonHostileNPC("Chest", List.of(potion, sword, armor));
         Character player = new Character("Player", 3, 100);
 
         chest.interaction(player); //player receives loot
 
-        /*List<Item> inventory = player.getInventory(); (requires that character has inventory)
+        List<Item> inventory = player.getInventory(); (requires that character has inventory)
         assertTrue(inventory.contains(potion));
         assertTrue(inventory.contains(sword));
         assertTrue(inventory.contains(armor));
-        assertEquals(3, inventory.size());*/
-    }
+        assertEquals(3, inventory.size());
+    }*/
 
     @Test
     public void testShopPurchaseWorks() {
         Character player = new Character("Player", 1, 100);
-        //player.addGold(60); (character needs gold)
+        //player.receiveGold(60);
 
-        Item potion = new CreateItem("Potion", 20, ItemType.POTION, 1, new HealingEffect());
+        Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
         Map<Item, Integer> shop = Map.of(potion, 50);
 
         NonHostileNPC merchant = new NonHostileNPC("Merchant", shop);
@@ -120,7 +119,7 @@ public class NPCTest {
         merchant.interaction(player);
         /*simulate a player buying an item:
         
-        Item selected = potion;
+        Consumable selected = potion;
         int price = merchant.getShopItems().get(selected);
 
         if (player.getGold() >= price) {
