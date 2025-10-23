@@ -2,7 +2,7 @@ package roguelike.item;
 
 import java.util.Objects;
 
-import roguelike.Character;
+import roguelike.character.Character;
 import roguelike.effect.Effect;
 
 //Concrete item class that creates different items based on enum ItemType and

@@ -1,6 +1,6 @@
 package roguelike.npc;
 
-import roguelike.Character;
+import roguelike.character.Character;
 
 public interface NPC {
     String getName();

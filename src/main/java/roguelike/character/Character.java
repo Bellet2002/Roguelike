@@ -1,6 +1,6 @@
 package roguelike.character;
 
-public class Character implements Attack{
+public class Character {
     final private String name;
     int hp;
     int level;
@@ -39,12 +39,6 @@ public class Character implements Attack{
         posY = Ypos;
 
         
-    }
-
-    @Override
-    public void attack(Character target){
-        
-
     }
 
     //movement in accordance to how position works in javaFX where pos 0,0 is upper left corner

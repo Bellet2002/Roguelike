@@ -2,7 +2,7 @@ package roguelike.npc;
 
 import java.util.List;
 
-import roguelike.Character;
+import roguelike.character.Character;
 import roguelike.item.Item;
 
 public class HostileNPC extends CreateNPC {
