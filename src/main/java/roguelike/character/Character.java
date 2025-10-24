@@ -5,7 +5,7 @@ import roguelike.map.Location;
 
 public abstract class Character {
     final private String name;
-    int hp;
+    private int hp;
     int level;
     private Location location;
     private Weapon weapon;
@@ -40,7 +40,9 @@ public abstract class Character {
     }
 
     public void attack(Character victim) {
+        if(weapon != null){
         weapon.attack(victim);
+        }
     }
 
     public void setHp(int damage) {
@@ -48,7 +50,7 @@ public abstract class Character {
             hp = 0;
             isAlive = false;
         } else {
-            hp =- damage;
+            hp -= damage;
         }
     }
     public String getName() {return name;}

@@ -11,6 +11,7 @@ public class Location {
         this.map = map;
     }
 
+    //borders? what do we do for out of bounds?
     public void move(Direction direct) {
         int x = this.getX() + direct.x;
         int y = this.getY() + direct.y;

@@ -13,13 +13,12 @@ public class Player extends Character{
     }
 
     void levelUp(){
-        this.level ++;
+        level++;
     }
 
-    //come up with something more interesting, or read how others do it somewhere
-    int getBaseAttack(){
-        return this.hp/100;
-    }
+
+
+    
     
 
 }
