@@ -3,16 +3,14 @@ package roguelike.npc;
 import roguelike.character.Character;
 
 //Abstract base class for NPCs
-public abstract class CreateNPC implements NPC {
+public abstract class AbstractNPC implements NPC {
     private final String name;
     private final int hp;
-    private final boolean isHostile;
 
 
-    public CreateNPC(String name, int hp, boolean isHostile) {
+    public AbstractNPC(String name, int hp) {
         this.name = name;
         this.hp = hp;
-        this.isHostile = isHostile;
     }
 
     @Override
@@ -23,11 +21,6 @@ public abstract class CreateNPC implements NPC {
     @Override
     public int getHp() {
         return hp;
-    }
-
-    @Override
-    public boolean isHostile() {
-        return isHostile;
     }
 
     @Override

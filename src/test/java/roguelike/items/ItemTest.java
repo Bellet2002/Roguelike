@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character;
 import roguelike.character.Player;
-import roguelike.effect.AttackEffect;
-import roguelike.effect.DefenseEffect;
 import roguelike.effect.HealingEffect;
-import roguelike.item.CreateItem;
-import roguelike.item.Item;
+import roguelike.item.Consumable;
+import roguelike.item.Equipment;
 import roguelike.item.ItemType;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
@@ -17,40 +15,31 @@ import roguelike.map.Location;
 public class ItemTest {
 
     @Test
-    public void testWeaponItemCreation() {
-        Item weapon = new CreateItem("Great Sword", 10, ItemType.WEAPON, 1, new AttackEffect());
+    public void testEquipmentItemCreation() {
+        Equipment weapon = new Equipment("Great Sword", ItemType.WEAPON, 1, 10);
         assertEquals("Great Sword", weapon.getName());
-        assertEquals(10, weapon.getPower());
         assertEquals(1, weapon.getLevelRequirement());
         assertEquals(ItemType.WEAPON, weapon.getType());
+        assertEquals(10, weapon.getStat());
     }
 
     @Test
-    public void testArmorItemCreation() {
-        Item armor = new CreateItem("Leather Armor", 5, ItemType.ARMOR, 1, new DefenseEffect());
-        assertEquals("Leather Armor", armor.getName());
-        assertEquals(5, armor.getPower());
-        assertEquals(1, armor.getLevelRequirement());
-        assertEquals(ItemType.ARMOR, armor.getType());
-    }
-
-    @Test
-    public void testPotionItemCreation() {
-        Item potion = new CreateItem("Large Potion", 20, ItemType.POTION, 1, new HealingEffect());
+    public void testConsumableItemCreation() {
+        HealingEffect healingEffect = new HealingEffect(20);
+        Consumable potion = new Consumable("Large Potion", ItemType.POTION, 1, healingEffect);
         assertEquals("Large Potion", potion.getName());
-        assertEquals(20, potion.getPower());
         assertEquals(1, potion.getLevelRequirement());
         assertEquals(ItemType.POTION, potion.getType());
+        assertEquals(healingEffect, potion.getEffect());
     }
 
     @Test
     public void potionHealsCorrectAmount() {
         GameMap map = new GameMap(false);
-        Character player = new Player("Player", 3, 70, new Location(map.getTile(0, 0), map));
+        Character player = new Player("Player", 70, 3, new Location(map.getTile(0, 0), map));
 
-        Item potion = new CreateItem("Healing Potion", 20, ItemType.POTION, 1, new HealingEffect());
+        Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, new HealingEffect(20));
         potion.use(player); //applies HealingEffect
-
         assertEquals(90, player.getHp());
     }
 }

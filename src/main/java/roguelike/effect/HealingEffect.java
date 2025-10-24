@@ -1,12 +1,15 @@
 package roguelike.effect;
 
 import roguelike.character.Character;
-import roguelike.item.Item;
 
-public class HealingEffect implements Effect {
+public class HealingEffect extends AbstractEffect {
+
+    public HealingEffect(int amount) {
+        super(amount);
+    }
+
     @Override
-    public void apply(Character character, Item item) {
-        //int healingAmount = item.getPower();
-        //character.heal(healingAmount); (requires heal() method in Character?)
+    public void apply(Character character) {
+        //character.heal(amount);
     }
 }
