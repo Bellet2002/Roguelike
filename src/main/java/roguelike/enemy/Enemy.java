@@ -31,5 +31,5 @@ public class Enemy extends Character {
         System.out.println(line);
     }
 
-    private EnemyPersonality getPersonality() { return personality; }
+    public EnemyPersonality getPersonality() { return personality; }
 }
