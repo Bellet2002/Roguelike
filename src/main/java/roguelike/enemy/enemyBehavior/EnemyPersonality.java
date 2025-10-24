@@ -4,23 +4,25 @@ import roguelike.character.Player;
 import roguelike.enemy.Enemy;
 
 public class EnemyPersonality implements EnemyBehavior {
-    private final EnemyBehavior aggressive;
+    private final EnemyBehavior active;
     private final EnemyBehavior idle;
     private boolean visiblePlayer = false;
 
-    public EnemyPersonality(EnemyBehavior aggressive, EnemyBehavior idle) {
-        this.aggressive = aggressive;
+    public EnemyPersonality(EnemyBehavior active, EnemyBehavior idle) {
+        this.active = active;
         this.idle = idle;
     }
 
     @Override
     public void behavior(Enemy enemy, Player player) {
-        visiblePlayer = enemy.getLocation().getDistance(player.getLocation()) < 4;
-
+        visiblePlayer = (enemy.getLocation().getDistance(player.getLocation()) <= 10) ? true : false;
         if (visiblePlayer) {
-            aggressive.behavior(enemy, player);
+            active.behavior(enemy, player);
         } else {
             idle.behavior(enemy, player);
         }
     }
+
+    public EnemyBehavior getAggressive() { return active; }
+    public EnemyBehavior getIdle() { return idle; }
 }

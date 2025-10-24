@@ -9,6 +9,7 @@ public abstract class Character {
     int level;
     private Location location;
     private Weapon weapon;
+    private boolean isAlive = true;
 
     public enum Direction{
         UP(0, -1),
@@ -42,6 +43,14 @@ public abstract class Character {
         weapon.attack(victim);
     }
 
+    public void setHp(int damage) {
+        if ((hp - damage) <= 0) {
+            hp = 0;
+            isAlive = false;
+        } else {
+            hp =- damage;
+        }
+    }
     public String getName() {return name;}
 
     public int getHp() {return hp;}
@@ -51,6 +60,8 @@ public abstract class Character {
     public Location getLocation() { return location; }
 
     public Weapon getWeapon() { return weapon; }
+
+    public boolean isAlive() { return isAlive; }
 
     public void move(Direction direction){
         location.move(direction);

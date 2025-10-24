@@ -17,8 +17,6 @@ public class Location {
         Tile newTile = map.getTile(x, y);
 
         if (newTile.isWalkable()) {
-            tile.vacate();
-            newTile.occupy();
             tile = newTile;
         }
     }
@@ -34,5 +32,6 @@ public class Location {
     public int getX() { return tile.getPosX(); }
     public int getY() { return tile.getPosY(); }
     public Tile getTile() { return tile; }
+    public GameMap getMap() { return map; }
     
 }

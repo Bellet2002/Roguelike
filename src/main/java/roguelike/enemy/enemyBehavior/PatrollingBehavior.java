@@ -1,5 +1,6 @@
 package roguelike.enemy.enemyBehavior;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,7 +11,7 @@ import roguelike.map.Location;
 import roguelike.map.Tile;
 
 public class PatrollingBehavior implements EnemyBehavior{
-    private List<Location> patrolPoints;
+    private List<Location> patrolPoints = new ArrayList<>();
     private int currentLocation = 0;
 
     private Random rand = new Random();
@@ -24,12 +25,18 @@ public class PatrollingBehavior implements EnemyBehavior{
         }
     }
 
+    public PatrollingBehavior(List<Location> patrolPoints) {
+        this.patrolPoints = patrolPoints;
+    }
+
     @Override
     public void behavior(Enemy enemy, Player player) {
         Location next = patrolPoints.get(currentLocation);
         enemy.moveTowards(next);
-        if (enemy.getLocation().equals(next)) {
+        if (next.isNeighbour(enemy.getLocation())) {
             currentLocation = (currentLocation + 1) % patrolPoints.size();
         }
     }
+
+    public List<Location> getPatrolPoints() { return patrolPoints; }
 }

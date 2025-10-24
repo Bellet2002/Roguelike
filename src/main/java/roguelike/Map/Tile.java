@@ -45,8 +45,6 @@ public class Tile {
     public int getPosX() { return this.posX; }
     public int getPosY() { return this.posY; }
     public boolean isWalkable() { return walkable; }
-    public void occupy() { walkable = false; }
-    public void vacate() { walkable = true; }
 
     @Override
     public boolean equals(Object o) {

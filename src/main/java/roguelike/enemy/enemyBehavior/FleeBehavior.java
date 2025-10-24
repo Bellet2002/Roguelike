@@ -17,13 +17,30 @@ public class FleeBehavior implements EnemyBehavior {
 
     @Override
     public void behavior(Enemy enemy, Player player) {
-        Location current = enemy.getLocation();
-        if (enemy.getLocation().getDistance(player.getLocation()) <= 3) {
-            int x = rand.nextInt(current.getX() + 1, map.getFrameSize());
-            int y = rand.nextInt(current.getY() + 1, map.getFrameSize());
+        int curX = enemy.getLocation().getX();
+        int curY = enemy.getLocation().getY();
+        int playerX = player.getLocation().getX();
+        int playerY = player.getLocation().getY();
 
-            Location newLocation = new Location(map.getTile(x, y), map);
-            enemy.moveTowards(newLocation);
+        int minX, maxX;
+        if (curX < playerX) {
+            minX = 0;
+            maxX = curX - 2;
+        } else {
+            minX = curX + 2;
+            maxX = map.getWidth() - 1;
         }
+        int minY, maxY;
+        if (curY < playerY) {
+            minY = 0;
+            maxY = curY - 2;
+        } else {
+            minY = curY + 2;
+            maxY = map.getHeight() - 1;
+        }
+
+        int targetX = (minX <= maxX) ? rand.nextInt(minX, maxX + 1) : minX;
+        int targetY = (minY <= maxY) ? rand.nextInt(minY, maxY + 1) : minY;
+        enemy.moveTowards(new Location(map.getTile(targetX, targetY), map));
     }
 }
