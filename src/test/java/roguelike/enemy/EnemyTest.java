@@ -6,6 +6,7 @@ import roguelike.enemy.enemyBehavior.*;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -178,6 +179,11 @@ public class EnemyTest {
             goblin.getPersonality().getIdle().behavior(goblin, null);
             assertTrue(patrolPoints.get(i % patrolPoints.size()).isNeighbour(goblin.getLocation()));
         }
+        Location location = goblin.getLocation();
+        goblin.setHp(30);
+        assertFalse(goblin.isAlive());
+        goblin.moveTowards(new Location(map.getTile(0, 0), map));
+        assertEquals(location, goblin.getLocation());
     }
 
     @Test
