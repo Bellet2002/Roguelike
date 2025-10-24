@@ -6,7 +6,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        GameMap map = new GameMap(15, 10, true);
+        GameMap map = new GameMap(true);
         map.displayMap();
     }
 }

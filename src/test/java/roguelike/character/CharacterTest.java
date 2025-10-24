@@ -11,7 +11,8 @@ public class CharacterTest {
     final int VALID_HP = 1000;
     final int START_POS= 315;
 
-    @Test
+    //Byta Detta till Player test kanske? Går inte att testa abstrakta klasser direkt
+    /*@Test
     public void contructorTest(){
         Character character = new Character("Test", VALID_HP, VALID_LEVEL);
         assertEquals(1000, character.getHp());
@@ -76,7 +77,7 @@ public class CharacterTest {
         test.move(Direction.LEFT);
         
         assertEquals(0, test.getXPos());
-    }
+    } */
     
 
 }

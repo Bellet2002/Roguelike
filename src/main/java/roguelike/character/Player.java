@@ -1,13 +1,15 @@
 package roguelike.character;
 
+import roguelike.map.Location;
+
 public class Player extends Character{
     
 
-    Player(String name, int hp, int level) {
-        super(name, hp, level);
+    public Player(String name, int hp, int level, Location location) {
+        super(name, hp, level, location);
     }
-    Player(String name, int hp){
-        super(name, hp);
+    public Player(String name, int hp, Location location){
+        super(name, hp, location);
     }
 
     void levelUp(){

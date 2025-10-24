@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character;
+import roguelike.character.Player;
 import roguelike.effect.HealingEffect;
 import roguelike.item.Consumable;
 import roguelike.item.Equipment;
 import roguelike.item.ItemType;
+import roguelike.map.GameMap;
+import roguelike.map.Location;
 
 public class ItemTest {
 
@@ -32,9 +35,10 @@ public class ItemTest {
 
     @Test
     public void potionHealsCorrectAmount() {
-        Character player = new Character("Player", 70, 3);
-        HealingEffect healingEffect = new HealingEffect(20);
-        Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, healingEffect);
+        GameMap map = new GameMap(false);
+        Character player = new Player("Player", 70, 3, new Location(map.getTile(0, 0), map));
+
+        Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, new HealingEffect(20));
         potion.use(player); //applies HealingEffect
         assertEquals(90, player.getHp());
     }
