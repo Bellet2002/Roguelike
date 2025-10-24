@@ -3,13 +3,16 @@ package roguelike.items;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import roguelike.Character;
+import roguelike.character.Character;
+import roguelike.character.Player;
 import roguelike.effect.AttackEffect;
 import roguelike.effect.DefenseEffect;
 import roguelike.effect.HealingEffect;
 import roguelike.item.CreateItem;
 import roguelike.item.Item;
 import roguelike.item.ItemType;
+import roguelike.map.GameMap;
+import roguelike.map.Location;
 
 public class ItemTest {
 
@@ -42,7 +45,8 @@ public class ItemTest {
 
     @Test
     public void potionHealsCorrectAmount() {
-        Character player = new Character("Player", 3, 70);
+        GameMap map = new GameMap(false);
+        Character player = new Player("Player", 3, 70, new Location(map.getTile(0, 0), map));
 
         Item potion = new CreateItem("Healing Potion", 20, ItemType.POTION, 1, new HealingEffect());
         potion.use(player); //applies HealingEffect

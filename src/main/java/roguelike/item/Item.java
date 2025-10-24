@@ -1,6 +1,6 @@
 package roguelike.item;
 
-import roguelike.Character;
+import roguelike.character.Character;
 
 //Item interface defining item behavior
 public interface Item {      

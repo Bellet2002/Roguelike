@@ -3,15 +3,14 @@ package roguelike.map;
 import java.util.*;
 
 public class GameMap {
-    private int width, height;
+    private static final int FRAME_SIZE = 800;
+    private static final int UNIT_SIZE = FRAME_SIZE / 20;
+    private int width = UNIT_SIZE, height = UNIT_SIZE;
     private List<List<Tile>> mapTiles = new ArrayList<>(height);
     private Random rand = new Random();
     private record TileDistance(Tile tile, int distance) {}
 
-    public GameMap(int width, int height, boolean randomized) {
-        this.width = width;
-        this.height = height;
-
+    public GameMap(boolean randomized) {
         generateMap();
         if (randomized) {
             generateRandomTerrain(TileType.MOUNTAIN, 1, 2, 0.8);
@@ -160,4 +159,13 @@ public class GameMap {
     }
 
     public List<List<Tile>> getMap() { return this.mapTiles; }
+    public Tile getTile(int x, int y) {
+        int X = ((x % width) + width) % width;
+        int Y = ((y % height) + height) % height;
+
+        return mapTiles.get(Y).get(X);
+    }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public int getFrameSize() { return FRAME_SIZE; }
 }

@@ -1,6 +1,6 @@
 package roguelike.effect;
 
-import roguelike.Character;
+import roguelike.character.Character;
 import roguelike.item.Item;
 
 public class AttackEffect implements Effect {

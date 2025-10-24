@@ -1,27 +1,45 @@
 package roguelike.character;
 
-public class Character implements Attack{
+import roguelike.item.Weapon;
+import roguelike.map.Location;
+
+public abstract class Character {
     final private String name;
     int hp;
     int level;
-    private int posX, posY;
+    private Location location;
+    private Weapon weapon;
 
-    enum Direction{
-        RIGHT, LEFT, UP, DOWN
+    public enum Direction{
+        UP(0, -1),
+        DOWN(0, 1),
+        LEFT(-1, 0),
+        RIGHT(1, 0);
+
+        public final int x;
+        public final int y;
+
+        Direction(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
-    public Character(String name, int hp, int level){
+    public Character(String name, int hp, int level, Location location){
         this.name = name;
         this.hp = hp;
         if( level > 0) { this.level = level; }
             else { this.level = 1; }
 
-        this.posX = 315;
-        this.posY = 315;
+        this.location = location;
     }
 
-    public Character(String name, int hp){
-        this(name, hp, 1);
+    public Character(String name, int hp, Location location){
+        this(name, hp, 1, location);
+    }
+
+    public void attack(Character victim) {
+        weapon.attack(victim);
     }
 
     public String getName() {return name;}
@@ -30,49 +48,11 @@ public class Character implements Attack{
 
     public int getLevel() {return level;}
 
-    public int getXPos() {return posX;}
+    public Location getLocation() { return location; }
 
-    public int getYPos(){return posY;}
+    public Weapon getWeapon() { return weapon; }
 
-    void setPosition(int Xpos, int Ypos){
-        posX = Xpos;
-        posY = Ypos;
-
-        
-    }
-
-    @Override
-    public void attack(Character target){
-        
-
-    }
-
-    //movement in accordance to how position works in javaFX where pos 0,0 is upper left corner
-    //and one tile is 70 pixels 
     public void move(Direction direction){
-
-        switch (direction) {
-            case UP:
-                if (posY >= 70) {
-                    this.posY = posY - 70;
-                }
-                break;
-            case DOWN: 
-                if (posY <= 630) {
-                    this.posY = posY + 70;
-                }
-                break;
-            case LEFT:
-                    if (posX >= 70) {
-                    this.posX = posX - 70;
-                }   
-                break;
-            case RIGHT:
-            if (posX <= 630) {
-                    this.posX = posX + 70;
-                }
-                break;
-        }
+        location.move(direction);
     }
-
 }

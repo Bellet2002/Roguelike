@@ -3,7 +3,7 @@ package roguelike.npc;
 import java.util.List;
 import java.util.Map;
 
-import roguelike.Character;
+import roguelike.character.Character;
 import roguelike.item.Item;
 
 //Concrete class for non-hostile NPCs

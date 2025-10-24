@@ -13,18 +13,17 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 public class MapTest {
-    private int width = 15, height = 10;
     @Test
     void mapIsCorrectSize() {
-        GameMap map = new GameMap(width, height, false);
+        GameMap map = new GameMap(false);
         List<List<Tile>> list = map.getMap();
-        assertEquals(list.size(), height);
-        assertEquals(list.get(0).size(), width);
+        assertEquals(list.size(), map.getHeight());
+        assertEquals(list.get(0).size(), map.getWidth());
     }
 
     @Test
     void terrainIsGenerated() {
-        GameMap map = new GameMap(width, height, true);
+        GameMap map = new GameMap(true);
 
         Set<TileType> foundTerrain = new HashSet<>();
         for (List<Tile> row : map.getMap()) {
@@ -42,7 +41,7 @@ public class MapTest {
     void findsCorrectNeighbours() {
         int y = 4;
         int x = 4;
-        GameMap map = new GameMap(width, height, true);
+        GameMap map = new GameMap(true);
         List<List<Tile>> mapTiles = map.getMap();
         Tile tile = mapTiles.get(y).get(x);
         List<Tile> neighbours = map.findNeighbours(tile);
@@ -55,20 +54,20 @@ public class MapTest {
 
     @Test
     void generatesRoadpointsOnBorder() {
-        GameMap map = new GameMap(width, height, false);
+        GameMap map = new GameMap(false);
         List<List<Tile>> mapTiles = map.getMap();
         List<Tile> points = map.generateRandomRoadPoints();
         Tile start = points.get(0);
         Tile end = points.get(1);
 
         List<Tile> topRow = mapTiles.get(0);
-        List<Tile> botRow = mapTiles.get(height - 1);
+        List<Tile> botRow = mapTiles.get(map.getHeight() - 1);
         List<Tile> leftRow = new ArrayList<>();
         List<Tile> rightRow = new ArrayList<>();
 
         for (List<Tile> list : mapTiles) {
             leftRow.add(list.get(0));
-            rightRow.add(list.get(width - 1));
+            rightRow.add(list.get(map.getWidth() - 1));
         }
         
         assertTrue(topRow.contains(start) || 
@@ -85,11 +84,11 @@ public class MapTest {
 
     @Test
     void findsAPath() {
-        GameMap map = new GameMap(width, height, true);
+        GameMap map = new GameMap(true);
         List<List<Tile>> mapTiles = map.getMap();
 
         Tile start = mapTiles.get(0).get(0);
-        Tile end = mapTiles.get(height - 1).get(width - 1);
+        Tile end = mapTiles.get(map.getHeight() - 1).get(map.getWidth() - 1);
         List<Tile> path = map.generatePath(start, end);
         
         assertNotNull(path);
