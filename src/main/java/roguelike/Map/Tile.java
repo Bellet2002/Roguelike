@@ -7,6 +7,7 @@ public class Tile {
     private String symbol;
     private int weight;
     private int posX, posY;
+    private boolean walkable;
 
     public Tile(TileType type, int posX, int posY) {
         this.type = type;
@@ -14,6 +15,7 @@ public class Tile {
         this.posY = posY;
         updateSymbol();
         updateWeight();
+        walkable = (type == TileType.WATER) ? false : true;
         
     }
 
@@ -42,6 +44,9 @@ public class Tile {
     public int getWeight() { return this.weight; }
     public int getPosX() { return this.posX; }
     public int getPosY() { return this.posY; }
+    public boolean isWalkable() { return walkable; }
+    public void occupy() { walkable = false; }
+    public void vacate() { walkable = true; }
 
     @Override
     public boolean equals(Object o) {

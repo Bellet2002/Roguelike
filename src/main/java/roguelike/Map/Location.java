@@ -14,7 +14,13 @@ public class Location {
     public void move(Direction direct) {
         int x = this.getX() + direct.x;
         int y = this.getY() + direct.y;
-        tile = map.getTile(x, y);
+        Tile newTile = map.getTile(x, y);
+
+        if (newTile.isWalkable()) {
+            tile.vacate();
+            newTile.occupy();
+            tile = newTile;
+        }
     }
 
     public int getDistance(Location other) {
@@ -28,4 +34,5 @@ public class Location {
     public int getX() { return tile.getPosX(); }
     public int getY() { return tile.getPosY(); }
     public Tile getTile() { return tile; }
+    
 }
