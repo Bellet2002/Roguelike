@@ -1,7 +1,7 @@
 package roguelike.effect;
 
 public abstract class AbstractEffect implements Effect {
-    private final int amount;
+    protected int amount;
 
     public AbstractEffect(int amount) {
         this.amount = amount;

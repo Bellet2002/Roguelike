@@ -108,7 +108,7 @@ public class NPCTest {
 
     @Test
     public void testShopPurchaseWorks() {
-        Character player = new Character("Player", 1, 100);
+        Character player = new Character("Player", 100, 1);
         //player.receiveGold(60);
 
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));

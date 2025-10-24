@@ -32,7 +32,7 @@ public class ItemTest {
 
     @Test
     public void potionHealsCorrectAmount() {
-        Character player = new Character("Player", 3, 70);
+        Character player = new Character("Player", 70, 3);
         HealingEffect healingEffect = new HealingEffect(20);
         Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, healingEffect);
         potion.use(player); //applies HealingEffect
