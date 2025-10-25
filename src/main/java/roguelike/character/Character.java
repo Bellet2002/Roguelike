@@ -5,6 +5,7 @@ import roguelike.map.Location;
 
 public abstract class Character {
     final private String name;
+    private final int maxHp;
     int hp;
     int level;
     private Location location;
@@ -29,6 +30,7 @@ public abstract class Character {
     public Character(String name, int hp, int level, Location location){
         this.name = name;
         this.hp = hp;
+        this.maxHp = hp;
         if( level > 0) { this.level = level; }
             else { this.level = 1; }
 
@@ -48,12 +50,26 @@ public abstract class Character {
             hp = 0;
             isAlive = false;
         } else {
-            hp =- damage;
+            hp -= damage;
         }
     }
+
+    public void heal(int amount) {
+        if (amount <= 0) {
+            return;
+        } 
+
+        hp += amount;
+        if (hp > maxHp) {
+            hp = maxHp;
+        }
+    }   
+
     public String getName() {return name;}
 
     public int getHp() {return hp;}
+
+    public int getMaxHp() {return maxHp;}
 
     public int getLevel() {return level;}
 
