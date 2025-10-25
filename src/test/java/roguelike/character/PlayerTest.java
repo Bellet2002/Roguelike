@@ -53,6 +53,7 @@ public class PlayerTest {
 
         chara.move(Direction.LEFT);
         assertEquals(0, chara.getLocation().getX());
+        assertEquals(0, chara.getLocation().getY());
     }
 
     @Test
@@ -89,6 +90,7 @@ public class PlayerTest {
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         test.move(Direction.UP);
         
+        assertEquals(0, test.getLocation().getX());
         assertEquals(0, test.getLocation().getY());
     }
 
@@ -99,5 +101,6 @@ public class PlayerTest {
         test.move(Direction.LEFT);
         
         assertEquals(0, test.getLocation().getX());
+        assertEquals(0, test.getLocation().getY());
     }
 }

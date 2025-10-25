@@ -63,6 +63,8 @@ public abstract class Character {
 
     public Weapon getWeapon() { return weapon; }
 
+    public void setWeapon(Weapon weapon){ this.weapon = weapon;}
+
     public boolean isAlive() { return isAlive; }
 
     public void move(Direction direction){
