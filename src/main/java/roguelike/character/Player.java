@@ -30,11 +30,6 @@ public class Player extends Character{
         
     }
 
-    @Override
-    public void move(Direction dir){
-
-    }
-
     public int getMaxHp(){
         return MAX_HP;
     }

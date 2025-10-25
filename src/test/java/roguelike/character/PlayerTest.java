@@ -8,7 +8,7 @@ import roguelike.map.GameMap;
 import roguelike.map.Location;
 
 public class PlayerTest {
-    final int VALID_HP = 1500;
+    final int VALID_HP = 500;
     final int VALID_LEVEL = 10;
 
     @Test
@@ -44,6 +44,27 @@ public class PlayerTest {
         assertEquals(0, chara.getLocation().getX());
         assertEquals(0, chara.getLocation().getY());
 
+    }
+
+    @Test
+    public void CharacterCanTakeDamageTest(){
+        GameMap map = new GameMap(false);
+        Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
+
+        test.setHp(100);
+
+        assertEquals(VALID_HP, test.getMaxHp());
+        assertEquals(400, test.getHp());
+    }
+
+    public void CharacterCanDie(){
+        GameMap map = new GameMap(false);
+        Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
+
+        test.setHp(VALID_HP);
+
+        assertEquals(0, test.getHp());
+        assertEquals(false, test.isAlive());
     }
 
     @Test
