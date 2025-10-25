@@ -1,10 +1,15 @@
 package roguelike.character;
 
-import roguelike.effect.AbstractEffect;
+import java.util.ArrayList;
+
+import roguelike.effect.Effect;
+import roguelike.item.Consumable;
 import roguelike.map.Location;
 
 public class Player extends Character{
     private final int MAX_HP;
+    private ArrayList<Effect> effects = new ArrayList<>();
+    private Inventory inventory = new Inventory();
     
 
     public Player(String name, int hp, int level, Location location) {
@@ -34,8 +39,9 @@ public class Player extends Character{
         return MAX_HP;
     }
 
-    public void applyEffect(AbstractEffect effect){
-        
+    public void use(Consumable item){
+        item.getEffect();
+
     }
     
     
