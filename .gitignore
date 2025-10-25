@@ -1,1 +1,3 @@
 target/
+src/test/java/roguelike/items/ItemTest.java
+src/test/java/roguelike/npcs/NPCTest.java

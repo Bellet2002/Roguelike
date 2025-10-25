@@ -6,9 +6,9 @@ import java.util.Map;
 import roguelike.character.Player;
 import roguelike.item.Item;
 
-//Concrete class for non-hostile NPCs
+//Concrete class for friendly NPCs
 public class FriendlyNPC extends AbstractNPC {
-    private final Map<Item, Integer> shopItems; //null if not a merchant
+    private final Map<Item, Integer> shopItems;
     private final List<Item> lootItems;
 
     //Constructor for default NPCs

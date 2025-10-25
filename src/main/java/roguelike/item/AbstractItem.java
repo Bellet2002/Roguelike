@@ -1,6 +1,6 @@
 package roguelike.item;
 
-import roguelike.character.Player;
+import roguelike.character.Character;
 
 //Abstract item class implementing interface Item that creates base for other subclasses
 public abstract class AbstractItem implements Item {
@@ -30,7 +30,7 @@ public abstract class AbstractItem implements Item {
     }
 
     @Override
-    public boolean canUse(Player player) {
+    public boolean canUse(Character player) {
         return player.getLevel() >= levelRequirement;
     }
 }

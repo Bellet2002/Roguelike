@@ -1,12 +1,12 @@
 package roguelike.item;
 
-import roguelike.character.Player;
+import roguelike.character.Character;
 
 //Item interface defining item behavior
 public interface Item {      
     String getName();
     ItemType getType();
     int getLevelRequirement();
-    boolean canUse(Player player);
-    void use(Player player);
+    boolean canUse(Character player);
+    void use(Character player);
 }

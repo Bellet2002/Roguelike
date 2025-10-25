@@ -1,25 +1,24 @@
 package roguelike.item;
 
-import roguelike.character.Player;
-import roguelike.effect.Effect;
+import roguelike.character.Character;
+import roguelike.effect.AbstractEffect;
 
 public class Consumable extends AbstractItem {
-    private final Effect effect;
+    private final AbstractEffect effect;
 
-    public Consumable(String name, ItemType type, int levelRequirement, Effect effect) {
+    public Consumable(String name, ItemType type, int levelRequirement, AbstractEffect effect) {
         super(name, type, levelRequirement);
         this.effect = effect;
     }
 
-    public Effect getEffect() {
+    public AbstractEffect getEffect() {
         return effect;
     }
 
     @Override
-    public void use(Player player) {
-        if (canUse(player)) {
+    public void use(Character player) {
+        if (canUse(player) || effect.getAmount() != 0) {
             effect.apply(player);
-            
         }
     }
 }

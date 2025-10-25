@@ -55,7 +55,7 @@ public abstract class Character {
     }
 
     public void heal(int amount) {
-        if (amount <= 0) {
+        if (amount <= 0 || hp == maxHp) {
             return;
         } 
 
