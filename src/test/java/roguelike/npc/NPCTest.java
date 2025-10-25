@@ -13,10 +13,6 @@ import roguelike.item.Consumable;
 import roguelike.item.Equipment;
 import roguelike.item.Item;
 import roguelike.item.ItemType;
-import roguelike.npc.FriendlyNPC;
-import roguelike.character.Player;
-import roguelike.map.GameMap;
-import roguelike.map.Location;
 
 
 public class NPCTest {
