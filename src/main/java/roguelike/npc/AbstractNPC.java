@@ -1,6 +1,6 @@
 package roguelike.npc;
 
-import roguelike.character.Character;
+import roguelike.character.Player;
 
 //Abstract base class for NPCs
 public abstract class AbstractNPC implements NPC {
@@ -24,5 +24,5 @@ public abstract class AbstractNPC implements NPC {
     }
 
     @Override
-    public abstract void interaction(Character character);
+    public abstract void interaction(Player player);
 }

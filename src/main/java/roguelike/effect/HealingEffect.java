@@ -10,6 +10,8 @@ public class HealingEffect extends AbstractEffect {
 
     @Override
     public void apply(Character character) {
-        //character.heal(amount);
+        if (amount > 0) {
+            character.heal(amount);
+        }
     }
 }

@@ -1,9 +1,9 @@
 package roguelike.npc;
 
-import roguelike.character.Character;
+import roguelike.character.Player;
 
 public interface NPC {
     String getName();
     int getHp();
-    void interaction(Character character);
+    void interaction(Player player);
 }

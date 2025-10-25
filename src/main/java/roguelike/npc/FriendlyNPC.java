@@ -3,7 +3,7 @@ package roguelike.npc;
 import java.util.List;
 import java.util.Map;
 
-import roguelike.character.Character;
+import roguelike.character.Player;
 import roguelike.item.Item;
 
 //Concrete class for non-hostile NPCs
@@ -41,7 +41,7 @@ public class FriendlyNPC extends AbstractNPC {
     }
 
     @Override
-    public void interaction(Character character) {
+    public void interaction(Player player) {
         if (shopItems != null && !shopItems.isEmpty()) {
             //Shop logic
         }
@@ -49,7 +49,7 @@ public class FriendlyNPC extends AbstractNPC {
         //NPC gives loot items
         if (lootItems != null && !lootItems.isEmpty()) {
             for (Item item : lootItems) {
-                if (item.canUse(character)) {
+                if (item.canUse(player)) {
                     //character.collect(item);
                 }
             }

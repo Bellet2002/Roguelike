@@ -1,6 +1,6 @@
 package roguelike.item;
 
-import roguelike.character.Character;
+import roguelike.character.Player;
 import roguelike.effect.Effect;
 
 public class Consumable extends AbstractItem {
@@ -16,9 +16,9 @@ public class Consumable extends AbstractItem {
     }
 
     @Override
-    public void use(Character character) {
-        if (canUse(character)) {
-            effect.apply(character);
+    public void use(Player player) {
+        if (canUse(player)) {
+            effect.apply(player);
             
         }
     }

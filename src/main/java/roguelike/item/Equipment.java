@@ -1,6 +1,6 @@
 package roguelike.item;
 
-import roguelike.character.Character;
+import roguelike.character.Player;
 
 public class Equipment extends AbstractItem {
     private final int stat;
@@ -15,8 +15,8 @@ public class Equipment extends AbstractItem {
     }
 
     @Override
-    public void use(Character character) {
-        if (canUse(character)) {
+    public void use(Player player) {
+        if (canUse(player)) {
             
         }
     }
