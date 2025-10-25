@@ -112,7 +112,7 @@ public class PlayerTest {
         test.move(Direction.UP);
         
         assertEquals(0, test.getLocation().getX());
-        assertEquals(0, test.getLocation().getY());
+        assertEquals(map.getHeight()-1, test.getLocation().getY());
     }
 
     @Test
@@ -121,7 +121,7 @@ public class PlayerTest {
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         test.move(Direction.LEFT);
         
-        assertEquals(0, test.getLocation().getX());
+        assertEquals(map.getWidth()-1, test.getLocation().getX());
         assertEquals(0, test.getLocation().getY());
     }
 }

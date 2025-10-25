@@ -36,15 +36,19 @@ public class Inventory {
         equipment.put(item, 1);
     }
 
-    public boolean getConsumable(Consumable item){
+    public boolean ConsumableExists(Consumable item){
         return consumable.containsKey(item);
     }
 
-    public boolean getEquipment(Equipment item){
+    public boolean EquipmentExists(Equipment item){
         return equipment.containsKey(item);
     }
 
-    public void use(Consumable item){}
+    public void use(Consumable item){
+        if(ConsumableExists(item)){
+            
+        }
+    }
 
     public void use(Equipment item){}
     
