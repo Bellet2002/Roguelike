@@ -53,7 +53,7 @@ public class EnemyTest {
                                 new PatrollingBehavior(map)
                             )
         );
-        Player character = new Player("Sacrifice", 50, new Location(map.getTile(10, 10), map));
+        Player character = new Player("Sacrifice", 50, new Location(map.getTile(0, 10), map));
         assertFalse(goblin.IsAttacking());
         goblin.moveTowards(character.getLocation());
         assertTrue(character.getLocation().isNeighbour(goblin.getLocation()));
@@ -199,8 +199,11 @@ public class EnemyTest {
                                 new StandingBehavior()
                             )
         );
-        Player character = new Player("Villain", 50, new Location(map.getTile(5, 17), map));
+        Player character = new Player("Villain", 50, new Location(map.getTile(map.getHeight()-1, map.getWidth()-1), map));
         squirrel.getPersonality().behavior(squirrel, character);
+        assertFalse(squirrel.hasSpoken());
+        Player otherCharacter = new Player("Villain", 50, new Location(map.getTile(5, 17), map));
+        squirrel.getPersonality().behavior(squirrel, otherCharacter);
         assertTrue(squirrel.hasSpoken());
     }
     

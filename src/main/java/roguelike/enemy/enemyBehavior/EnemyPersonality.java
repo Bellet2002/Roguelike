@@ -23,6 +23,5 @@ public class EnemyPersonality implements EnemyBehavior {
         }
     }
 
-    public EnemyBehavior getAggressive() { return active; }
     public EnemyBehavior getIdle() { return idle; }
 }

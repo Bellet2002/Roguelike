@@ -39,8 +39,8 @@ public class FleeBehavior implements EnemyBehavior {
             maxY = map.getHeight() - 1;
         }
 
-        int targetX = (minX <= maxX) ? rand.nextInt(minX, maxX + 1) : minX;
-        int targetY = (minY <= maxY) ? rand.nextInt(minY, maxY + 1) : minY;
+        int targetX = rand.nextInt(minX, maxX + 1);
+        int targetY = rand.nextInt(minY, maxY + 1);
         enemy.moveTowards(new Location(map.getTile(targetX, targetY), map));
     }
 }

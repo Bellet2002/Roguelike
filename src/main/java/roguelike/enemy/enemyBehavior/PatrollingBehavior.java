@@ -33,10 +33,6 @@ public class PatrollingBehavior implements EnemyBehavior{
     public void behavior(Enemy enemy, Player player) {
         Location next = patrolPoints.get(currentLocation);
         enemy.moveTowards(next);
-        if (next.isNeighbour(enemy.getLocation())) {
-            currentLocation = (currentLocation + 1) % patrolPoints.size();
-        }
+        currentLocation = (currentLocation + 1) % patrolPoints.size();
     }
-
-    public List<Location> getPatrolPoints() { return patrolPoints; }
 }

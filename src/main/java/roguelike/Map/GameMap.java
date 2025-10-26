@@ -29,9 +29,15 @@ public class GameMap {
         }
     }
 
-    private void generateRandomTerrain(TileType type, int minPatches, int maxPatches, double patchSize) {
+    public void generateRandomTerrain(TileType type, int minPatches, int maxPatches, double patchSize) {
+        if (type == null) throw new IllegalArgumentException();
+        if (minPatches < 0 || maxPatches < 0 || minPatches > maxPatches || maxPatches > UNIT_SIZE)
+            throw new IllegalArgumentException();
+        if (patchSize < 0 || patchSize > 1)
+            throw new IllegalArgumentException();
+
         int maxDimension = Math.min(width, height);
-        int amount = minPatches + rand.nextInt(maxPatches - minPatches + 1);
+        int amount = (minPatches != 0) ? minPatches + rand.nextInt(maxPatches - minPatches + 1) : 1;
         int minSize = 1 + rand.nextInt(Math.max(1, (int)Math.ceil((maxDimension * patchSize) / 2)));
         int maxSize = minSize + rand.nextInt(Math.max(1, (int)Math.ceil(maxDimension * patchSize) - minSize));
 
@@ -42,12 +48,23 @@ public class GameMap {
             int patchHeight = minSize + rand.nextInt(maxSize - minSize + 1);
             int patchWidth = minSize + rand.nextInt(maxSize - minSize + 1);
             int startY = i * zoneHeight + rand.nextInt(Math.max(1, zoneHeight - patchHeight));
+            Set<Tile> currentPatch = new HashSet<>();
+
             for (int y = startY; y < Math.min(height, startY + patchHeight); y++) {
-                int rowOffset = rand.nextInt((int)Math.ceil(Math.max(1, patchWidth * 0.7)));
-                int startX = i * zoneWidth + rand.nextInt(Math.max(1, zoneWidth - patchWidth)) + rowOffset;
+                int startX = i * zoneWidth;
                 for (int x = startX; x < Math.min(width, startX + patchWidth); x++) {
-                    if (rand.nextDouble() < 0.85) {
+                    boolean touchesOtherPatch = false;
+                    Tile currentTile = mapTiles.get(y).get(x);
+                    List<Tile> neighbours = findNeighbours(currentTile); 
+                    for (Tile tile : neighbours) {
+                        if (tile.getType() == type && !currentPatch.contains(tile)) {
+                            touchesOtherPatch = true;
+                            break;
+                        }
+                    }
+                    if (!touchesOtherPatch) {
                         mapTiles.get(y).get(x).setType(type);
+                        currentPatch.add(currentTile);
                     }
                 }
             }
@@ -130,7 +147,7 @@ public class GameMap {
         return result;
     }
 
-    private Tile randomRoadPointsHelper(int edge) {
+    public Tile randomRoadPointsHelper(int edge) {
         switch (edge) {
             case 0:
                 return mapTiles.get(0).get(rand.nextInt(width - 1));
@@ -145,7 +162,7 @@ public class GameMap {
         }
     } 
 
-    public void displayMap() {
+    /*public void displayMap() {
         String border = "+" + " -".repeat(width) + " +";
         System.out.println(border);
         for (List<Tile> list : mapTiles) {
@@ -156,7 +173,7 @@ public class GameMap {
             System.out.println();
         }
         System.out.println(border);
-    }
+    }*/
 
     public List<List<Tile>> getMap() { return this.mapTiles; }
     public Tile getTile(int x, int y) {

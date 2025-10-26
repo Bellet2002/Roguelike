@@ -3,6 +3,7 @@ package roguelike.map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -80,6 +81,14 @@ public class MapTest {
                     leftRow.contains(end) || 
                     rightRow.contains(end)
                 );
+    }
+
+    @Test
+    void testInvalidEdgeInRoadPointHelper() {
+        GameMap map = new GameMap(false);
+        assertThrows(IllegalArgumentException.class, () -> 
+                        map.randomRoadPointsHelper(6)
+        );
     }
 
     @Test
