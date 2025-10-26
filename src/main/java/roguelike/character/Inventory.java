@@ -30,7 +30,7 @@ public class Inventory {
     }
 
     public void addItem(Equipment item){
-        if(equipment.containsKey(item)){
+        if(equipment.containsKey(item) && isnotNull(item)){
             equipment.put(item, equipment.get(item)+1);
             }
         equipment.put(item, 1);
@@ -45,11 +45,19 @@ public class Inventory {
     }
 
     public void use(Consumable item){
-        if(ConsumableExists(item)){
-            
+        if(ConsumableExists(item) && isnotNull(item)){
+            consumable.remove(item);
         }
     }
 
-    public void use(Equipment item){}
+    public void use(Equipment item){
+        if( EquipmentExists(item) && isnotNull(item)){
+            equipment.remove(item);
+        }
+    }
+
+    private boolean isnotNull(Object o){
+        return o != null;
+    }
     
 }

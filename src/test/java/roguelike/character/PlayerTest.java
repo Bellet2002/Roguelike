@@ -4,6 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character.Direction;
+import roguelike.enemy.Enemy;
+import roguelike.enemy.enemyBehavior.ChaseBehavior;
+import roguelike.enemy.enemyBehavior.EnemyPersonality;
+import roguelike.enemy.enemyBehavior.PatrollingBehavior;
+import roguelike.item.WeaponEquipment;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
@@ -28,10 +33,11 @@ public class PlayerTest {
         assertEquals(VALID_LEVEL + 1, test.getLevel());
     }
 
+    @Test
     public void contructorTest(){
         GameMap map = new GameMap(false);
         Player test = new Player("Test", VALID_HP, VALID_LEVEL, new Location(map.getTile(0, 0), map));
-        assertEquals(1000, test.getHp());
+        assertEquals(VALID_HP, test.getHp());
         assertEquals("Test", test.getName());
         assertEquals(VALID_LEVEL, test.getLevel() );
     }
@@ -43,7 +49,6 @@ public class PlayerTest {
 
         assertEquals(0, chara.getLocation().getX());
         assertEquals(0, chara.getLocation().getY());
-
     }
 
     @Test
@@ -57,6 +62,7 @@ public class PlayerTest {
         assertEquals(400, test.getHp());
     }
 
+    @Test
     public void CharacterCanDie(){
         GameMap map = new GameMap(false);
         Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
@@ -65,6 +71,19 @@ public class PlayerTest {
 
         assertEquals(0, test.getHp());
         assertEquals(false, test.isAlive());
+    }
+
+    @Test
+    public void characterCanAttack(){
+        GameMap map = new GameMap(false);
+        Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
+        Enemy enemy = new Enemy("Enemy", VALID_HP, VALID_LEVEL,
+                        new Location(map.getTile(0,0), map),
+                        new EnemyPersonality(new PatrollingBehavior(map),
+                        new ChaseBehavior()));
+        test.attack(enemy);
+
+        assertEquals(enemy.getMaxHp() - 10, enemy.getHp());
     }
 
     @Test
@@ -123,5 +142,27 @@ public class PlayerTest {
         
         assertEquals(map.getWidth()-1, test.getLocation().getX());
         assertEquals(0, test.getLocation().getY());
+    }
+
+    @Test
+    public void playerCanChangeValidWeapon(){
+        GameMap map = new GameMap(false);
+        Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map)); 
+        
+        WeaponEquipment sword = new WeaponEquipment("Better Sword", 1 ,10 ,100);
+        WeaponEquipment outside = new WeaponEquipment("NotInInventorySword", 1 ,10 ,100);
+
+        test.getInventory().addItem(sword);
+        test.setWeapon(sword);
+        test.setWeapon(outside);
+
+        assertEquals(sword, test.getWeapon());
+    }
+
+    @Test
+    public void usingEffectAddsToPlayer(){
+        GameMap map = new GameMap(false);
+        Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map)); 
+
     }
 }

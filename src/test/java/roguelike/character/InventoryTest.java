@@ -44,6 +44,7 @@ public class InventoryTest {
 
     }
 
+    @Test
     public void itemIsGoneFromInventoryAfterUseTest(){
         Inventory inventory = new Inventory();
         Equipment sword = new Equipment("Test Sword", ItemType.WEAPON, 1, 10);

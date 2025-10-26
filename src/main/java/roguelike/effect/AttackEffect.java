@@ -1,6 +1,7 @@
 package roguelike.effect;
 
 import roguelike.character.Character;
+import roguelike.character.Player;
 
 public class AttackEffect extends AbstractEffect {
     
@@ -10,6 +11,8 @@ public class AttackEffect extends AbstractEffect {
     
     @Override
     public void apply(Character character) {
-
+        if(character instanceof Player player){
+            player.addEffect(this);
+        }
     }
 }
