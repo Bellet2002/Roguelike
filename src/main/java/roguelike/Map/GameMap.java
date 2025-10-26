@@ -147,7 +147,7 @@ public class GameMap {
         return result;
     }
 
-    private Tile randomRoadPointsHelper(int edge) {
+    public Tile randomRoadPointsHelper(int edge) {
         switch (edge) {
             case 0:
                 return mapTiles.get(0).get(rand.nextInt(width - 1));
@@ -162,7 +162,7 @@ public class GameMap {
         }
     } 
 
-    public void displayMap() {
+    /*public void displayMap() {
         String border = "+" + " -".repeat(width) + " +";
         System.out.println(border);
         for (List<Tile> list : mapTiles) {
@@ -173,7 +173,7 @@ public class GameMap {
             System.out.println();
         }
         System.out.println(border);
-    }
+    }*/
 
     public List<List<Tile>> getMap() { return this.mapTiles; }
     public Tile getTile(int x, int y) {

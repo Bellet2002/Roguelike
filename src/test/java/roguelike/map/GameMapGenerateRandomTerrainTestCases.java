@@ -9,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 //Denna fungerar dock inte heller, då den räknade clusters fel.
 //Så vid det här laget så ger jag upp på att prompta och fixar den existerande koden själv.
 //Det är inte bara ChatGPT's fel då jag behövde tona ner metodens randomness rätt mycket för att få stabila resultat.
+//Man kan dock tydligt inte lita på att bara för att den säger att testerna är rätt och dem går igenom
+//Att testerna faktiskt testar rätt saker.
 public class GameMapGenerateRandomTerrainTestCases {
 
     private GameMap map;
@@ -54,9 +56,8 @@ public class GameMapGenerateRandomTerrainTestCases {
     @Test
     void testT1_ForestNormalRange() {
         map.generateRandomTerrain(TileType.FOREST, 2, 5, 0.5);
-        map.displayMap();
+        //map.displayMap();
         int clusters = countClusters(TileType.FOREST);
-        System.out.println("Forests: " + clusters);
         assertTrue(clusters >= 2 && clusters <= 5, "Should generate 2-5 forest patches");
     }
 
@@ -64,9 +65,8 @@ public class GameMapGenerateRandomTerrainTestCases {
     @Test
     void testT2_MountainFixedCount() {
         map.generateRandomTerrain(TileType.MOUNTAIN, 3, 3, 0.4);
-        map.displayMap();
+        //map.displayMap();
         int clusters = countClusters(TileType.MOUNTAIN);
-        System.out.println("Mountains: " + clusters);
         assertEquals(3, clusters, "Should generate exactly 3 mountain patches");
     }
 

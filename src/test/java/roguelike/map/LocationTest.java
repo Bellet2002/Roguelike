@@ -2,11 +2,16 @@ package roguelike.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character.Direction;
+import roguelike.enemy.Enemy;
+import roguelike.enemy.enemyBehavior.ChaseBehavior;
+import roguelike.enemy.enemyBehavior.EnemyPersonality;
+import roguelike.enemy.enemyBehavior.PatrollingBehavior;
 
 public class LocationTest {
     @Test

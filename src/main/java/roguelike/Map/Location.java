@@ -15,10 +15,7 @@ public class Location {
         int x = this.getX() + direct.x;
         int y = this.getY() + direct.y;
         Tile newTile = map.getTile(x, y);
-
-        if (newTile.isWalkable()) {
-            tile = newTile;
-        }
+        tile = newTile;
     }
 
     public int getDistance(Location other) {
