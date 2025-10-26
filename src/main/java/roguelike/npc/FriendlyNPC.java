@@ -1,59 +1,54 @@
 package roguelike.npc;
 
-import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import roguelike.character.Player;
 import roguelike.item.Item;
+import roguelike.npc.npcBehavior.NPCBehavior;
 
 //Concrete class for friendly NPCs
 public class FriendlyNPC extends AbstractNPC {
-    private final Map<Item, Integer> shopItems;
-    private final List<Item> lootItems;
+    private final HashMap<Item, Integer> shopItems;
+    private final HashSet<Item> lootItems;
+    private final NPCBehavior behavior;
 
     //Constructor for default NPCs
-    public FriendlyNPC(String name) {
-        super(name, 100);
+    public FriendlyNPC(String name, NPCBehavior behavior) {
+        super(name);
         this.shopItems = null;
         this.lootItems = null;
+        this.behavior = behavior;
     }
 
-    //Constructor for NPCs that give loot (like chests, quests etc.)
-    public FriendlyNPC(String name, List<Item> lootItems) {
-        super(name, 100);
+    //Constructor for NPCs that give loot
+    public FriendlyNPC(String name, HashSet<Item> lootItems, NPCBehavior behavior) {
+        super(name);
         this.shopItems = null;
         this.lootItems = lootItems;
+        this.behavior = behavior;
     }
 
     //Constructor for NPCs carrying shop items
-    public FriendlyNPC(String name, Map<Item, Integer> shopItems) {
-        super(name, 100);
+    public FriendlyNPC(String name, HashMap<Item, Integer> shopItems, NPCBehavior behavior) {
+        super(name);
         this.shopItems = shopItems;
         this.lootItems = null;
+        this.behavior = behavior;
     }
 
-    public Map<Item, Integer> getShopItems() {
+    public HashMap<Item, Integer> getShopItems() {
         return shopItems;
     }
 
-    public List<Item> getLootItems() {
+    public HashSet<Item> getLootItems() {
         return lootItems;
     }
 
     @Override
     public void interaction(Player player) {
-        if (shopItems != null && !shopItems.isEmpty()) {
-            //Shop logic
+        if (behavior != null) {
+            behavior.interact(this, player);
         }
-
-        //NPC gives loot items
-        if (lootItems != null && !lootItems.isEmpty()) {
-            for (Item item : lootItems) {
-                if (item.canUse(player)) {
-                    //character.collect(item);
-                }
-            }
-        }
-
     }
 }

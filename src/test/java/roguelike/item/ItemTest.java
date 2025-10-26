@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 import roguelike.character.Character;
 import roguelike.character.Player;
 import roguelike.effect.HealingEffect;
+import roguelike.enemy.Enemy;
+import roguelike.enemy.enemyBehavior.ChaseBehavior;
+import roguelike.enemy.enemyBehavior.EnemyPersonality;
+import roguelike.enemy.enemyBehavior.PatrollingBehavior;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
@@ -16,7 +20,7 @@ public class ItemTest {
 
     @Test
     public void testEquipmentItemCreation() {
-        Equipment weapon = new Equipment("Great Sword", ItemType.WEAPON, 1, 10);
+        Equipment weapon = new WeaponEquipment("Great Sword", 1, 10, 3);
         assertEquals("Great Sword", weapon.getName());
         assertEquals(1, weapon.getLevelRequirement());
         assertEquals(ItemType.WEAPON, weapon.getType());
@@ -73,7 +77,7 @@ public class ItemTest {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 5, new Location(map.getTile(0, 0), map));
 
-        AbstractItem armor = new Equipment("Armor", ItemType.WEAPON, 5, 10);
+        AbstractItem armor = new Equipment("Armor", ItemType.ARMOR, 5, 10);
         assertTrue(armor.canUse(player));
     }
 
@@ -82,7 +86,58 @@ public class ItemTest {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 6, new Location(map.getTile(0, 0), map));
 
-        AbstractItem sword = new Equipment("Sword", ItemType.WEAPON, 5, 10);
+        AbstractItem sword = new WeaponEquipment("Sword", 5, 10, 3);
         assertTrue(sword.canUse(player));
+    }
+
+    @Test
+    public void testWeaponAttackReducesEnemyHp() {
+        WeaponEquipment sword = new WeaponEquipment("Sword", 1, 30, 3);
+        GameMap map = new GameMap(false);
+        Enemy goblin = new Enemy(
+                            "Goblin",
+                            100,
+                            2,
+                            new Location(map.getTile(0, 0), map),
+                            new EnemyPersonality(
+                                new PatrollingBehavior(map),
+                                new ChaseBehavior()
+                            )
+        );
+
+        sword.attack(goblin);
+
+        assertEquals(70, goblin.getHp());
+    }
+
+    @Test
+    public void testWeaponDurabilityDecreasesOnAttack() {
+        WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 3);
+        GameMap map = new GameMap(false);
+        Enemy goblin = new Enemy(
+                "Goblin",
+                50,
+                1,
+                new Location(map.getTile(0, 0), map),
+                new EnemyPersonality(
+                    new PatrollingBehavior(map),
+                    new ChaseBehavior()
+                )
+        );
+
+        assertEquals(3, sword.getDurability());
+        sword.attack(goblin);
+        assertEquals(2, sword.getDurability());
+        sword.attack(goblin);
+        assertEquals(1, sword.getDurability());
+    }
+
+    @Test
+    public void testPlayerCannotUseBrokenWeapon() {
+        Player player = new Player("Hero", 100, 5, null);
+        WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0); 
+
+        assertTrue(sword.isBroken()); 
+        sword.use(player);
     }
 }

@@ -1,7 +1,9 @@
 package roguelike.npc;
 
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,30 +13,31 @@ import org.junit.jupiter.api.Test;
 import roguelike.effect.HealingEffect;
 import roguelike.item.Consumable;
 import roguelike.item.Equipment;
+import roguelike.item.WeaponEquipment;
 import roguelike.item.Item;
 import roguelike.item.ItemType;
+import roguelike.npc.npcBehavior.LootBehavior;
+import roguelike.npc.npcBehavior.ShopBehavior;
 
 
 public class NPCTest {
     
     @Test
     public void testFriendlyNPCConstructor() {
-        FriendlyNPC npc = new FriendlyNPC("Greg");
+        FriendlyNPC npc = new FriendlyNPC("Greg", null);
 
         assertEquals("Greg", npc.getName());
-        assertEquals(100, npc.getHp());
     }
 
     @Test
     public void testFriendlyNPCWithLootConstructor() {
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
-        Equipment sword = new Equipment("Sword", ItemType.WEAPON, 1, 20);
-        List<Item> loot = List.of(potion, sword);
+        Equipment sword = new WeaponEquipment("Sword", 1, 20, 3);
+        HashSet<Item> loot = new HashSet<>(Set.of(potion, sword));
 
-        FriendlyNPC chest = new FriendlyNPC("Chest", loot);
+        FriendlyNPC chest = new FriendlyNPC("Chest", loot, new LootBehavior());
 
         assertEquals("Chest", chest.getName());
-        assertEquals(100, chest.getHp());
         assertNotNull(chest.getLootItems());
         assertEquals(2, chest.getLootItems().size());
         assertTrue(chest.getLootItems().contains(potion));
@@ -44,59 +47,51 @@ public class NPCTest {
     @Test
     public void testFriendlyNPCWithShopConstructor() {
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
-        Map<Item, Integer> shop = Map.of(potion, 50);
+        HashMap<Item, Integer> shop = new HashMap<>(Map.of(potion, 50));
 
-        FriendlyNPC merchant = new FriendlyNPC("Merchant", shop);
+        FriendlyNPC merchant = new FriendlyNPC("Merchant", shop, new ShopBehavior());
 
         assertEquals("Merchant", merchant.getName());
-        assertEquals(100, merchant.getHp());
         assertNotNull(merchant.getShopItems());
         assertTrue(merchant.getShopItems().containsKey(potion));
         assertEquals(50, merchant.getShopItems().get(potion));
     }
 
     /*@Test
-    public void testFriendlyNPCGivesLoot() {
+    public void testLootNPCBehaviorCollectsLoot() {
+        GameMap map = new GameMap(false);
+        Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
+
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
-        Equipment sword = new Equipment("Sword", ItemType.WEAPON, 1, 10);
-        Equipment armor = new Equipment("Armor", ItemType.ARMOR, 1, 15);
+        Equipment sword = new WeaponEquipment("Sword", 1, 20);
+        HashSet<Item> loot = new HashSet<>(Set.of(potion, sword));
 
-        FriendlyNPC chest = new FriendlyNPC("Chest", List.of(potion, sword, armor));
-        //Character player = new Player("Player", 3, 100);
+        FriendlyNPC chest = new FriendlyNPC("Chest", loot, new LootBehavior());
 
-        //chest.interaction(player); //player receives loot
+        chest.interactplayer);
 
-        List<Item> inventory = player.getInventory();
-        assertTrue(inventory.contains(potion));
-        assertTrue(inventory.contains(sword));
-        assertTrue(inventory.contains(armor));
-        assertEquals(3, inventory.size());
+        HashMap<Item, Integer> inventory = player.getInventory();
+        assertNotNull(inventory);
+        assertTrue(inventory.containsKey(potion));
+        assertTrue(inventory.containsKey(sword));
     }
 
     @Test
-    public void testShopPurchaseWorks() {
+    public void testShopBehaviorPurchaseItem() {
         GameMap map = new GameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
-        //player.receiveGold(60);
+        player.receiveGold(60); 
 
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
-        Map<Item, Integer> shop = Map.of(potion, 50);
+        HashMap<Item, Integer> shopItems = new HashMap<>();
+        shopItems.put(potion, 50);
 
-        FriendlyNPC merchant = new FriendlyNPC("Merchant", shop);
+        FriendlyNPC merchant = new FriendlyNPC("Merchant", shopItems, new ShopBehavior());
 
-       // merchant.interaction(player);
-        /*simulate a player buying an item:
-        
-        Consumable selected = potion;
-        int price = merchant.getShopItems().get(selected);
+        //simulates player buying the potion
+        merchant.interact(player);
 
-        if (player.getGold() >= price) {
-            player.buy(price);
-            player.collect(selected);
-        }
-
-        assertEquals(10, player.getGold());
-        assertTrue(player.getInventory().contains(selected));
+        assertEquals(10, player.getGold()); // 60 - 50 = 10
+        assertTrue(player.getInventory().containsKey(potion));
     }*/
-
 }
