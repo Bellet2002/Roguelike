@@ -2,57 +2,91 @@ package roguelike.map;
 
 import java.util.Objects;
 
+/**
+ * Represents a spot on the map with x and y coordinates and unique terrain.
+ */
 public class Tile {
-    private TileType type;
-    private String symbol;
-    private int weight;
-    private int posX, posY;
+  private TileType type;
+  private String symbol;
+  private int weight;
+  private int posX;
+  private int posY;
 
-    public Tile(TileType type, int posX, int posY) {
-        this.type = type;
-        this.posX = posX;
-        this.posY = posY;
-        updateSymbol();
-        updateWeight();
-        
-    }
+  /**
+   * Creates a tile with the specified type as well as x and y coordinates.
+   * 
+   * @param type  The tiles' terrain type
+   * @param posX  The tiles' x coordinate
+   * @param posY  The tiles' y coordinate
+   */
+  public Tile(TileType type, int posX, int posY) {
+    this.type = type;
+    this.posX = posX;
+    this.posY = posY;
+    updateSymbol();
+    updateWeight();  
+  }
 
-    private void updateSymbol() {
-        symbol = (type == TileType.GRASS) ? "G" :
+  private void updateSymbol() {
+    symbol = (type == TileType.GRASS) ? "G" :
             (type == TileType.WATER) ? "W" :
             (type == TileType.FOREST) ? "F" :
             (type == TileType.MOUNTAIN) ? "M" : 
             (type == TileType.ROAD) ? "R" : "?";
-    }
+  }
 
-    private void updateWeight() {
-        weight = (type == TileType.GRASS) ? 3 :
+  private void updateWeight() {
+    weight = (type == TileType.GRASS) ? 3 :
             (type == TileType.WATER) ? 10 :
             (type == TileType.FOREST) ? 5 :
             (type == TileType.MOUNTAIN) ? 6 :
             (type == TileType.ROAD) ? 1 : 3;
-    }
+  }
 
-    public void setType(TileType type) { 
-        this.type = type;
-        updateSymbol();
-        updateWeight();
-    }
-    public TileType getType() { return this.type; }
-    public String getSymbol() { return this.symbol; }
-    public int getWeight() { return this.weight; }
-    public int getPosX() { return this.posX; }
-    public int getPosY() { return this.posY; }
+  /**
+   * Allows for a tile to change its terrain type.
+   * 
+   * @param type  The new type of terrain
+   */
+  public void setType(TileType type) { 
+    this.type = type;
+    updateSymbol();
+    updateWeight();
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Tile other)) return false;
-        return posX == other.posX && posY == other.posY && type == other.type;
-    }
+  public TileType getType() {
+    return this.type;
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(posX, posY);
+  public String getSymbol() {
+    return this.symbol;
+  }
+
+  public int getWeight() {
+    return this.weight;
+  }
+
+  public int getPosX() {
+    return this.posX;
+  }
+
+  public int getPosY() {
+    return this.posY;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (!(o instanceof Tile other)) {
+      return false;
+    }
+    return posX == other.posX && posY == other.posY && type == other.type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(posX, posY);
+  }
 }

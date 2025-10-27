@@ -41,9 +41,9 @@ public abstract class Character {
         this(name, hp, 1, location);
     }
 
-    public void attack(Character victim) {
+    public void attack(Character victim, Player attacker) {
         if(weapon != null){
-        weapon.attack(victim);
+        weapon.attack(victim, attacker);
         }
     }
 

@@ -15,8 +15,13 @@ public class Consumable extends AbstractItem {
         return effect;
     }
 
+    @Override
+    public boolean canUse(Character player) {
+        return player.getLevel() >= levelRequirement && effect.getAmount() != 0;
+    }
+
     public void use(Character player) {
-        if (canUse(player) || effect.getAmount() != 0) {
+        if (canUse(player)) {
             effect.apply(player);
         }
     }

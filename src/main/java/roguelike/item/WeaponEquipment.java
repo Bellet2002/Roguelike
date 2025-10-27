@@ -1,31 +1,18 @@
 package roguelike.item;
 
 import roguelike.character.Character;
+import roguelike.character.Player;
 
 
 public class WeaponEquipment extends Equipment implements Weapon {
-    private int durability;
 
     public WeaponEquipment(String name, int levelRequirement, int attackPower, int durability) {
-        super(name, ItemType.WEAPON, levelRequirement, attackPower);
-        this.durability = durability;
-    }
-
-    public int getDurability() {
-        return durability;
-    }
-
-    public void setDurability(int durability) {
-        this.durability = Math.max(0, durability);
-    }
-
-    public boolean isBroken() {
-        return durability <= 0;
+        super(name, ItemType.WEAPON, levelRequirement, attackPower, durability); 
     }
 
     @Override
-    public void attack(Character target) {
-        if (!isBroken()) {
+    public void attack(Character target, Player player) {
+        if (canUse(player)) {
             target.takeDamage(getStat());
             durability--; 
         }

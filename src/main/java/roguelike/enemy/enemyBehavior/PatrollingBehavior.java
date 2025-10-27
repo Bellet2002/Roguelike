@@ -1,38 +1,49 @@
-package roguelike.enemy.enemyBehavior;
+package roguelike.enemy.enemybehavior;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import roguelike.character.Player;
 import roguelike.enemy.Enemy;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 import roguelike.map.Tile;
 
+/**
+ * Represents the behavior of an enemy patrolling.
+ */
 public class PatrollingBehavior implements EnemyBehavior{
-    private List<Location> patrolPoints = new ArrayList<>();
-    private int currentLocation = 0;
+  private List<Location> patrolPoints = new ArrayList<>();
+  private int currentLocation = 0;
+  private Random rand = new Random();
 
-    private Random rand = new Random();
-
-    public PatrollingBehavior(GameMap map) {
-        for (int i = 0; i < 3; i++) {
-            int x = rand.nextInt(map.getFrameSize());
-            int y = rand.nextInt(map.getFrameSize());
-            Tile tile = map.getTile(x, y);
-            patrolPoints.add(new Location(tile, map));
-        }
+  /**
+   * Creates a list of random locations for the enemy to patrol between.
+   * 
+   * @param map  Uses the map to selext the points
+   */
+  public PatrollingBehavior(GameMap map) {
+    for (int i = 0; i < 3; i++) {
+      int x = rand.nextInt(map.getFrameSize());
+      int y = rand.nextInt(map.getFrameSize());
+      Tile tile = map.getTile(x, y);
+      patrolPoints.add(new Location(tile, map));
     }
+  }
 
-    public PatrollingBehavior(List<Location> patrolPoints) {
-        this.patrolPoints = patrolPoints;
-    }
+  /**
+   * A constructor for when the patrolpoints are given directly.
+   * 
+   * @param patrolPoints  A list of locations to travel between
+   */
+  public PatrollingBehavior(List<Location> patrolPoints) {
+    this.patrolPoints = patrolPoints;
+  }
 
-    @Override
-    public void behavior(Enemy enemy, Player player) {
-        Location next = patrolPoints.get(currentLocation);
-        enemy.moveTowards(next);
-        currentLocation = (currentLocation + 1) % patrolPoints.size();
-    }
+  @Override
+  public void behavior(Enemy enemy, Player player) {
+    Location next = patrolPoints.get(currentLocation);
+    enemy.moveTowards(next);
+    currentLocation = (currentLocation + 1) % patrolPoints.size();
+  }
 }

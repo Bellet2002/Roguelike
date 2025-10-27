@@ -1,8 +1,14 @@
-package roguelike.enemy.enemyBehavior;
+package roguelike.enemy.enemybehavior;
 
 import roguelike.character.Player;
 import roguelike.enemy.Enemy;
 
+/**
+ * Represent an enemies behavior while either idling or active.
+ */
 public interface EnemyBehavior {
-    void behavior(Enemy enemy, Player player);
+  /**
+   * The logic for the different behaviors.
+   */
+  void behavior(Enemy enemy, Player player);
 }
