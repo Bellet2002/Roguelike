@@ -8,5 +8,4 @@ public interface Item {
     ItemType getType();
     int getLevelRequirement();
     boolean canUse(Character player);
-    void use(Character player);
 }

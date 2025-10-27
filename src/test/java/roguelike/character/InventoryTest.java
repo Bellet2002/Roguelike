@@ -1,6 +1,6 @@
 package roguelike.character;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,16 +20,16 @@ public class InventoryTest {
         Consumable first = new Consumable("Large Potion", ItemType.POTION, 1, new HealingEffect(20));
         Consumable second = new Consumable("small Potion", ItemType.POTION, 1, new HealingEffect(10));
         Equipment weapon = new Equipment("Great Sword", ItemType.WEAPON, 1, 10);
-        ArrayList<Item>items = new ArrayList<>();
+        HashSet<Item> items = new HashSet<>();
         items.add(first);
         items.add(second);
         items.add(weapon);
 
         inventory.addItem(items);
 
-        assertTrue(inventory.ConsumableExists(first));
-        assertTrue(inventory.ConsumableExists(second));
-        assertTrue(inventory.EquipmentExists(weapon));
+        assertTrue(inventory.consumableExists(first));
+        assertTrue(inventory.consumableExists(second));
+        assertTrue(inventory.equipmentExists(weapon));
 
     }
 
@@ -40,7 +40,7 @@ public class InventoryTest {
 
         inventory.addItem(item);
 
-        assertTrue(inventory.EquipmentExists(item));
+        assertTrue(inventory.equipmentExists(item));
 
     }
 
@@ -55,7 +55,7 @@ public class InventoryTest {
 
         inventory.use(potion);
 
-        assertFalse(inventory.ConsumableExists(potion));
+        assertFalse(inventory.consumableExists(potion));
     }
     
 }

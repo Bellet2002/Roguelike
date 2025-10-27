@@ -59,6 +59,7 @@ public class EnemyTest {
                                 new ChaseBehavior(),
                                 new PatrollingBehavior(map)
                             )
+<<<<<<< HEAD
     );
     Player character = new Player("Sacrifice", 50, new Location(map.getTile(0, 10), map));
     assertFalse(goblin.isAttacking());
@@ -71,6 +72,20 @@ public class EnemyTest {
     goblin.getPersonality().behavior(goblin, character);
     assertFalse(goblin.isAttacking());
   }
+=======
+        );
+        Player character = new Player("Sacrifice", 50, new Location(map.getTile(0, 10), map));
+        assertFalse(goblin.IsAttacking());
+        goblin.moveTowards(character.getLocation());
+        assertTrue(character.getLocation().isNeighbour(goblin.getLocation()));
+        goblin.getPersonality().behavior(goblin, character);
+        assertTrue(goblin.IsAttacking());
+        goblin.takeDamage(30);
+        assertFalse(goblin.isAlive());
+        goblin.getPersonality().behavior(goblin, character);
+        assertFalse(goblin.IsAttacking());
+    }
+>>>>>>> 14f1a88dc5218b0076bafd7e79c8cd88b3882980
 
   @Test
   void testChaseBehavior() {
@@ -186,10 +201,10 @@ public class EnemyTest {
       goblin.getPersonality().getIdle().behavior(goblin, null);
       assertTrue(patrolPoints.get(i % patrolPoints.size()).isNeighbour(goblin.getLocation()));
     }
-    goblin.setHp(30);
+    Location location = goblin.getLocation();
+    goblin.takeDamage(30);
     assertFalse(goblin.isAlive());
     goblin.moveTowards(new Location(map.getTile(0, 0), map));
-    Location location = goblin.getLocation();
     assertEquals(location, goblin.getLocation());
   }
 

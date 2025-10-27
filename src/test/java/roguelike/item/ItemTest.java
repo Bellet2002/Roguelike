@@ -3,7 +3,6 @@ package roguelike.item;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character;
@@ -41,7 +40,7 @@ public class ItemTest {
     public void testConsumableWithHealingEffectHealsCorrectly() {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
-        player.setHp(30); //100 - 30 = 70
+        player.takeDamage(30); //100 - 30 = 70
 
         Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, new HealingEffect(20));
         potion.use(player); //applies HealingEffect -> 70 + 20 = 90
@@ -52,7 +51,7 @@ public class ItemTest {
     public void testConsumableIsEmptyWhenUsed() {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
-        player.setHp(30); //100 - 30 = 70
+        player.takeDamage(30); //100 - 30 = 70
 
         HealingEffect healingEffect = new HealingEffect(20);
         Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, healingEffect);
@@ -137,7 +136,6 @@ public class ItemTest {
         Player player = new Player("Hero", 100, 5, null);
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0); 
 
-        assertTrue(sword.isBroken()); 
-        sword.use(player);
+        assertTrue(sword.isBroken());
     }
 }

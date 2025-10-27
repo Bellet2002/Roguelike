@@ -42,18 +42,18 @@ public class Player extends Character{
                 addedDmg += atkEffect.getAmount();
             } 
         }
-        enemy.setHp(baseDamage+addedDmg);
+        enemy.takeDamage(baseDamage+addedDmg);
     }
 
     @Override
-    public void setHp(int damage){
+    public void takeDamage(int damage){
         int reducedDmg = 0;
         for (AbstractEffect effect : effects) {
             if(effect instanceof DefenseEffect dfnEffect && !dfnEffect.isExpired()){
                 reducedDmg += dfnEffect.getAmount();
             } 
         }
-        super.setHp(damage-reducedDmg);
+        super.takeDamage(damage-reducedDmg);
     }
 
     public Inventory getInventory(){ return inventory; }
@@ -70,7 +70,7 @@ public class Player extends Character{
     @Override
     public void setWeapon(Weapon weapon){
         if(weapon instanceof WeaponEquipment w){
-            if(inventory.EquipmentExists(w)){
+            if(inventory.equipmentExists(w)){
                 inventory.addItem((WeaponEquipment)getWeapon());
                 inventory.use(w);
                 super.setWeapon(weapon);
@@ -79,7 +79,7 @@ public class Player extends Character{
     }
 
     public void useItem(Consumable item){
-        if(inventory.ConsumableExists(item)){
+        if(inventory.consumableExists(item)){
             item.use(this);
         }
     }

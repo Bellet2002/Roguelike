@@ -26,15 +26,8 @@ public class WeaponEquipment extends Equipment implements Weapon {
     @Override
     public void attack(Character target) {
         if (!isBroken()) {
-            target.setHp(getStat());
+            target.takeDamage(getStat());
             durability--; 
-        }
-    }
-
-    @Override
-    public void use(Character player) {
-        if (canUse(player)) {
-            //player.equip(this);
         }
     }
 }
