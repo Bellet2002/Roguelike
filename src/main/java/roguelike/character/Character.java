@@ -1,5 +1,6 @@
 package roguelike.character;
 
+import roguelike.enemy.Enemy;
 import roguelike.item.Weapon;
 import roguelike.map.Location;
 
@@ -41,9 +42,9 @@ public abstract class Character {
         this(name, hp, 1, location);
     }
 
-    public void attack(Character victim, Player attacker) {
-        if(weapon != null){
-        weapon.attack(victim, attacker);
+    public void attack(Enemy victim, Player attacker) {
+        if(weapon != null) {
+            weapon.attack(victim, attacker);
         }
     }
 

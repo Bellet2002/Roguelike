@@ -1,8 +1,8 @@
 package roguelike.item;
 
-import roguelike.character.Character;
 import roguelike.character.Player;
+import roguelike.enemy.Enemy;
 
 public interface Weapon {
-    void attack(Character character, Player player);
+    void attack(Enemy enemy, Player player);
 }

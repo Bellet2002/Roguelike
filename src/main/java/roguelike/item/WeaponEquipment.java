@@ -1,7 +1,7 @@
 package roguelike.item;
 
-import roguelike.character.Character;
 import roguelike.character.Player;
+import roguelike.enemy.Enemy;
 
 
 public class WeaponEquipment extends Equipment implements Weapon {
@@ -11,7 +11,7 @@ public class WeaponEquipment extends Equipment implements Weapon {
     }
 
     @Override
-    public void attack(Character target, Player player) {
+    public void attack(Enemy target, Player player) {
         if (canUse(player)) {
             target.takeDamage(getStat());
             durability--; 

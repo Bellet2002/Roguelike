@@ -63,7 +63,7 @@ public class NPCTest {
 
     @Test
     public void testLootNPCBehaviorGivesLoot() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
 
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));
@@ -82,7 +82,7 @@ public class NPCTest {
 
     @Test
     public void testShopBehaviorPurchaseItem() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
 
         Consumable potion = new Consumable("Potion", ItemType.POTION, 1, new HealingEffect(20));

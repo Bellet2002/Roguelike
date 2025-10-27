@@ -6,6 +6,7 @@ import roguelike.effect.AbstractEffect;
 import roguelike.effect.AttackEffect;
 import roguelike.effect.DefenseEffect;
 import roguelike.effect.HealingEffect;
+import roguelike.enemy.Enemy;
 import roguelike.item.Consumable;
 import roguelike.item.Weapon;
 import roguelike.item.WeaponEquipment;
@@ -34,7 +35,7 @@ public class Player extends Character{
     }
 
     @Override
-    public void attack(Character enemy, Player player){
+    public void attack(Enemy enemy, Player player){
         //should check the effect for attacking to eventually boost attack
         int baseDamage = this.getWeapon().getStat();
         int addedDmg = 0;
