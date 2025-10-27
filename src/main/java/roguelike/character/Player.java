@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import roguelike.effect.AbstractEffect;
 import roguelike.effect.AttackEffect;
 import roguelike.effect.DefenseEffect;
+import roguelike.effect.HealingEffect;
 import roguelike.enemy.Enemy;
 import roguelike.item.Consumable;
 import roguelike.item.Weapon;
@@ -72,7 +73,7 @@ public class Player extends Character{
     public void setWeapon(Weapon weapon){
         if(weapon instanceof WeaponEquipment w){
             if(inventory.equipmentExists(w)){
-                inventory.addItem((WeaponEquipment)getWeapon());
+                inventory.addItem(getWeapon());
                 inventory.use(w);
                 super.setWeapon(weapon);
             }  
@@ -80,12 +81,22 @@ public class Player extends Character{
     }
 
     public void useItem(Consumable item){
+        if(item.getEffect() instanceof HealingEffect effect){
+            item.use(this);
+            if(effect.getAmount()<= 0) inventory.use(item);
+            return;
+        }
+
         if(inventory.consumableExists(item)){
             item.use(this);
+            inventory.use(item);
         }
     }
 
     public void addEffect(AbstractEffect effect) {
+        if(effect instanceof HealingEffect healing){
+            healing.apply(this);
+        }
         effects.add(effect);
     }
 
