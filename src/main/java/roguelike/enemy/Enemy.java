@@ -58,7 +58,7 @@ public class Enemy extends Character {
    * 
    * @param target  The targeted character
    */
-  public void attack(Character target, Player player) {
+  public void attack(Enemy target, Player player) {
     isAttacking = (this.isAlive()) ? true : false;
     if (isAttacking) {
       super.attack(target, player);
