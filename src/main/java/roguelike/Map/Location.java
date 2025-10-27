@@ -69,5 +69,4 @@ public class Location {
   public GameMap getMap() {
     return map;
   }
-    
 }
