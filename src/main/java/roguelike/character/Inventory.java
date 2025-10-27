@@ -56,6 +56,15 @@ public class Inventory {
         }
     }
 
+    public Consumable getItem(String name){
+        for (Consumable item: consumable.keySet()){
+            if(item.getName().equals(name)){
+                return item;
+            }
+        }
+        return null;
+    }
+
     private boolean isnotNull(Object o){
         return o != null;
     }
