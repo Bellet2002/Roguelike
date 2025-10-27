@@ -30,11 +30,4 @@ public class WeaponEquipment extends Equipment implements Weapon {
             durability--; 
         }
     }
-
-    @Override
-    public void use(Character player) {
-        if (canUse(player)) {
-            //player.equip(this);
-        }
-    }
 }

@@ -3,7 +3,6 @@ package roguelike.item;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character;
@@ -137,7 +136,6 @@ public class ItemTest {
         Player player = new Player("Hero", 100, 5, null);
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0); 
 
-        assertTrue(sword.isBroken()); 
-        sword.use(player);
+        assertTrue(sword.isBroken());
     }
 }
