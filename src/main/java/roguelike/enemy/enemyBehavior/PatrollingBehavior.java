@@ -1,10 +1,9 @@
-package roguelike.enemy.enemyBehavior;
+package roguelike.enemy.enemybehavior;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import roguelike.character.Player;
 import roguelike.enemy.Enemy;
 import roguelike.map.GameMap;

@@ -1,19 +1,18 @@
 package roguelike.enemy;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
 
+import java.util.List;
+import org.junit.jupiter.api.Test;
 import roguelike.character.Character.Direction;
 import roguelike.character.Player;
-import roguelike.enemy.enemyBehavior.ChaseBehavior;
-import roguelike.enemy.enemyBehavior.EnemyPersonality;
-import roguelike.enemy.enemyBehavior.FleeBehavior;
-import roguelike.enemy.enemyBehavior.PatrollingBehavior;
-import roguelike.enemy.enemyBehavior.StandingBehavior;
+import roguelike.enemy.enemybehavior.ChaseBehavior;
+import roguelike.enemy.enemybehavior.EnemyPersonality;
+import roguelike.enemy.enemybehavior.FleeBehavior;
+import roguelike.enemy.enemybehavior.PatrollingBehavior;
+import roguelike.enemy.enemybehavior.StandingBehavior;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 

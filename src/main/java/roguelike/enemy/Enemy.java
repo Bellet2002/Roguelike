@@ -2,7 +2,7 @@ package roguelike.enemy;
 
 import roguelike.character.Character;
 import roguelike.character.Player;
-import roguelike.enemy.enemyBehavior.EnemyPersonality;
+import roguelike.enemy.enemybehavior.EnemyPersonality;
 import roguelike.map.Location;
 
 /**

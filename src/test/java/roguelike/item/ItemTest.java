@@ -138,7 +138,7 @@ public class ItemTest {
     public void testWeaponDurabilityIsNotNegativeAfterAttack() {
         Player player = new Player("Hero", 100, 5, null);
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0); 
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Enemy goblin = new Enemy(
                 "Goblin",
                 50,
