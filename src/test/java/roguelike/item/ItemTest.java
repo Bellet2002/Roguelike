@@ -9,9 +9,9 @@ import roguelike.character.Character;
 import roguelike.character.Player;
 import roguelike.effect.HealingEffect;
 import roguelike.enemy.Enemy;
-import roguelike.enemy.enemyBehavior.ChaseBehavior;
-import roguelike.enemy.enemyBehavior.EnemyPersonality;
-import roguelike.enemy.enemyBehavior.PatrollingBehavior;
+import roguelike.enemy.enemybehavior.ChaseBehavior;
+import roguelike.enemy.enemybehavior.EnemyPersonality;
+import roguelike.enemy.enemybehavior.PatrollingBehavior;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
