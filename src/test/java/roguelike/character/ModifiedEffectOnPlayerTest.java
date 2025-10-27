@@ -2,13 +2,10 @@ package roguelike.character;
 
 import org.junit.jupiter.api.Test;
 import roguelike.effect.AttackEffect;
-import roguelike.effect.DefenseEffect;
 import roguelike.enemy.Enemy;
-import roguelike.enemy.enemyBehavior.ChaseBehavior;
-import roguelike.enemy.enemyBehavior.EnemyPersonality;
-import roguelike.enemy.enemyBehavior.PatrollingBehavior;
-import roguelike.item.Consumable;
-import roguelike.item.ItemType;
+import roguelike.enemy.enemybehavior.ChaseBehavior;
+import roguelike.enemy.enemybehavior.EnemyPersonality;
+import roguelike.enemy.enemybehavior.PatrollingBehavior;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
@@ -20,7 +17,7 @@ public class ModifiedEffectOnPlayerTest {
 
     @Test
     public void baseLineTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         Enemy enemy = new Enemy("Enemy", VALID_HP, VALID_LEVEL,
                 new Location(map.getTile(0,0), map),
@@ -28,7 +25,7 @@ public class ModifiedEffectOnPlayerTest {
                         new ChaseBehavior()));
 
         //Nothing applied
-        player.attack(enemy);
+        player.attack(enemy, player);
         assertEquals(enemy.getMaxHp()-10, enemy.getHp());
 
         player.takeDamage(10);
@@ -37,7 +34,7 @@ public class ModifiedEffectOnPlayerTest {
 
     @Test
     public void decreasedAttackTest(){ //WIP
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         Enemy enemy = new Enemy("Enemy", VALID_HP, VALID_LEVEL,
                 new Location(map.getTile(0,0), map),
@@ -49,7 +46,7 @@ public class ModifiedEffectOnPlayerTest {
 
     @Test
     public void decreasedDefenceTest(){ //WIP
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         Enemy enemy = new Enemy("Enemy", VALID_HP, VALID_LEVEL,
                 new Location(map.getTile(0,0), map),
