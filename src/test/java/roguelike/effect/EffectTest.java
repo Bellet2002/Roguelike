@@ -11,7 +11,7 @@ public class EffectTest {
 
     @Test
     public void testValidHealing() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
         HealingEffect healing = new HealingEffect(20);
         player.takeDamage(50); //simulates player taking damage, setHP = hp - damage
@@ -23,7 +23,7 @@ public class EffectTest {
 
     @Test
     public void testHealingExceedsHp() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
         HealingEffect healing = new HealingEffect(20);
         player.takeDamage(5); //hp = 95
@@ -35,7 +35,7 @@ public class EffectTest {
 
     @Test
     public void testInvalidHealingAmount() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
         player.takeDamage(5); //hp = 95
 
@@ -47,7 +47,7 @@ public class EffectTest {
 
     @Test
     public void testHealingWithFullHp() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
         HealingEffect healing = new HealingEffect(20);
 

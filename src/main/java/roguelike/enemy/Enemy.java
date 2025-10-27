@@ -1,6 +1,7 @@
 package roguelike.enemy;
 
 import roguelike.character.Character;
+import roguelike.character.Player;
 import roguelike.enemy.enemybehavior.EnemyPersonality;
 import roguelike.map.Location;
 
@@ -57,10 +58,10 @@ public class Enemy extends Character {
    * 
    * @param target  The targeted character
    */
-  public void attack(Character target) {
+  public void attack(Character target, Player player) {
     isAttacking = (this.isAlive()) ? true : false;
     if (isAttacking) {
-      super.attack(target);
+      super.attack(target, player);
     }
   }
 

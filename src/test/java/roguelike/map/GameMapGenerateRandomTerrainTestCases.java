@@ -29,7 +29,7 @@ public class GameMapGenerateRandomTerrainTestCases {
   // Så en tydlig positiv med AI-användning i detta stadiet är att man lär sig mycket av syntaxen
   @BeforeEach
   void setUp() {
-    map = new GameMap(false);
+    map = GameMap.createGameMap(false);
   }
 
   private int countClusters(TileType type) {

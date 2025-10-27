@@ -1,6 +1,7 @@
 package roguelike.enemy.enemybehavior;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import roguelike.character.Player;
@@ -12,10 +13,10 @@ import roguelike.map.Tile;
 /**
  * Represents the behavior of an enemy patrolling.
  */
-public class PatrollingBehavior implements EnemyBehavior{
+public class PatrollingBehavior implements EnemyBehavior {
   private List<Location> patrolPoints = new ArrayList<>();
   private int currentLocation = 0;
-  private Random rand = new Random();
+  private static Random rand = new Random();
 
   /**
    * Creates a list of random locations for the enemy to patrol between.
@@ -37,7 +38,7 @@ public class PatrollingBehavior implements EnemyBehavior{
    * @param patrolPoints  A list of locations to travel between
    */
   public PatrollingBehavior(List<Location> patrolPoints) {
-    this.patrolPoints = patrolPoints;
+    this.patrolPoints = Collections.unmodifiableList(patrolPoints);
   }
 
   @Override

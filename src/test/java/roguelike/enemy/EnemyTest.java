@@ -24,7 +24,7 @@ import roguelike.map.Location;
 public class EnemyTest {
   @Test
   void testMoveTowardsLocation() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy goblin = new Enemy(
                             "Goblin",
                             30,
@@ -49,7 +49,7 @@ public class EnemyTest {
 
   @Test
   void testMoveTowardsPlayerAndChaseBehavior() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy goblin = new Enemy(
                             "Goblin",
                             30,
@@ -74,7 +74,7 @@ public class EnemyTest {
 
   @Test
   void testChaseBehavior() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy goblin = new Enemy(
                             "Goblin",
                             30,
@@ -93,7 +93,7 @@ public class EnemyTest {
 
   @Test
   void testFleeBehaviorUp() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
                             5,
@@ -111,7 +111,7 @@ public class EnemyTest {
 
   @Test
   void testFleeBehaviorDown() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
                             5,
@@ -129,7 +129,7 @@ public class EnemyTest {
 
   @Test
   void testFleeBehaviorRight() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
                             5,
@@ -147,7 +147,7 @@ public class EnemyTest {
 
   @Test
   void testFleeBehaviorLeft() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
                             5,
@@ -165,7 +165,7 @@ public class EnemyTest {
 
   @Test
   void testPatrollingBehavior() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     List<Location> patrolPoints = List.of(
             new Location(map.getTile(5, 5), map),
             new Location(map.getTile(10, 10), map),
@@ -186,16 +186,16 @@ public class EnemyTest {
       goblin.getPersonality().getIdle().behavior(goblin, null);
       assertTrue(patrolPoints.get(i % patrolPoints.size()).isNeighbour(goblin.getLocation()));
     }
-    Location location = goblin.getLocation();
     goblin.takeDamage(30);
     assertFalse(goblin.isAlive());
+    Location location = goblin.getLocation();
     goblin.moveTowards(new Location(map.getTile(0, 0), map));
     assertEquals(location, goblin.getLocation());
   }
 
   @Test
   void testSpeakAndStandingBehavior() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
                             5,
@@ -220,7 +220,7 @@ public class EnemyTest {
     
   @Test
   void testActiveToIdle() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Enemy goblin = new Enemy(
                             "Goblin",
                             30,
