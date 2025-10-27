@@ -56,7 +56,7 @@ public class PlayerTest {
         GameMap map = new GameMap(false);
         Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
 
-        test.setHp(100);
+        test.takeDamage(100);
 
         assertEquals(VALID_HP, test.getMaxHp());
         assertEquals(400, test.getHp());
@@ -67,7 +67,7 @@ public class PlayerTest {
         GameMap map = new GameMap(false);
         Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
 
-        test.setHp(VALID_HP);
+        test.takeDamage(VALID_HP);
 
         assertEquals(0, test.getHp());
         assertEquals(false, test.isAlive());

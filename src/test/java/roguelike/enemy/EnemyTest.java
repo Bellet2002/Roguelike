@@ -59,7 +59,7 @@ public class EnemyTest {
         assertTrue(character.getLocation().isNeighbour(goblin.getLocation()));
         goblin.getPersonality().behavior(goblin, character);
         assertTrue(goblin.IsAttacking());
-        goblin.setHp(30);
+        goblin.takeDamage(30);
         assertFalse(goblin.isAlive());
         goblin.getPersonality().behavior(goblin, character);
         assertFalse(goblin.IsAttacking());
@@ -180,7 +180,7 @@ public class EnemyTest {
             assertTrue(patrolPoints.get(i % patrolPoints.size()).isNeighbour(goblin.getLocation()));
         }
         Location location = goblin.getLocation();
-        goblin.setHp(30);
+        goblin.takeDamage(30);
         assertFalse(goblin.isAlive());
         goblin.moveTowards(new Location(map.getTile(0, 0), map));
         assertEquals(location, goblin.getLocation());

@@ -47,7 +47,7 @@ public abstract class Character {
         }
     }
 
-    public void setHp(int damage) {
+    public void takeDamage(int damage) {
         if ((hp - damage) <= 0) {
             hp = 0;
             isAlive = false;

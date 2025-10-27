@@ -41,7 +41,7 @@ public class ItemTest {
     public void testConsumableWithHealingEffectHealsCorrectly() {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
-        player.setHp(30); //100 - 30 = 70
+        player.takeDamage(30); //100 - 30 = 70
 
         Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, new HealingEffect(20));
         potion.use(player); //applies HealingEffect -> 70 + 20 = 90
@@ -52,7 +52,7 @@ public class ItemTest {
     public void testConsumableIsEmptyWhenUsed() {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
-        player.setHp(30); //100 - 30 = 70
+        player.takeDamage(30); //100 - 30 = 70
 
         HealingEffect healingEffect = new HealingEffect(20);
         Consumable potion = new Consumable("Healing Potion", ItemType.POTION, 1, healingEffect);

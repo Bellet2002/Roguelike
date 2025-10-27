@@ -1,6 +1,5 @@
 package roguelike.character;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,9 +27,9 @@ public class InventoryTest {
 
         inventory.addItem(items);
 
-        assertTrue(inventory.ConsumableExists(first));
-        assertTrue(inventory.ConsumableExists(second));
-        assertTrue(inventory.EquipmentExists(weapon));
+        assertTrue(inventory.consumableExists(first));
+        assertTrue(inventory.consumableExists(second));
+        assertTrue(inventory.equipmentExists(weapon));
 
     }
 
@@ -41,7 +40,7 @@ public class InventoryTest {
 
         inventory.addItem(item);
 
-        assertTrue(inventory.EquipmentExists(item));
+        assertTrue(inventory.equipmentExists(item));
 
     }
 
@@ -56,7 +55,7 @@ public class InventoryTest {
 
         inventory.use(potion);
 
-        assertFalse(inventory.ConsumableExists(potion));
+        assertFalse(inventory.consumableExists(potion));
     }
     
 }
