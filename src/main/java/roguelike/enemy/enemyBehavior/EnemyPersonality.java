@@ -1,4 +1,4 @@
-package roguelike.enemy.enemybehavior;
+package roguelike.enemy.enemyBehavior;
 
 import roguelike.character.Player;
 import roguelike.enemy.Enemy;

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character.Direction;
 import roguelike.enemy.Enemy;
-import roguelike.enemy.enemybehavior.ChaseBehavior;
-import roguelike.enemy.enemybehavior.EnemyPersonality;
-import roguelike.enemy.enemybehavior.PatrollingBehavior;
+import roguelike.enemy.enemyBehavior.ChaseBehavior;
+import roguelike.enemy.enemyBehavior.EnemyPersonality;
+import roguelike.enemy.enemyBehavior.PatrollingBehavior;
 import roguelike.item.WeaponEquipment;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
