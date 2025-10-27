@@ -19,7 +19,7 @@ public class InventoryTest {
         Inventory inventory = new Inventory();
         Consumable first = new Consumable("Large Potion", ItemType.POTION, 1, new HealingEffect(20));
         Consumable second = new Consumable("small Potion", ItemType.POTION, 1, new HealingEffect(10));
-        Equipment weapon = new Equipment("Great Sword", ItemType.WEAPON, 1, 10);
+        Equipment weapon = new Equipment("Great Sword", ItemType.WEAPON, 1, 10, 10);
         HashSet<Item> items = new HashSet<>();
         items.add(first);
         items.add(second);
@@ -36,7 +36,7 @@ public class InventoryTest {
     @Test
     public void singularItemCanBeAdded(){
         Inventory inventory = new Inventory();
-        Equipment item = new Equipment("Great Sword", ItemType.WEAPON, 1, 10);
+        Equipment item = new Equipment("Great Sword", ItemType.WEAPON, 1, 10, 10);
 
         inventory.addItem(item);
 
@@ -47,7 +47,7 @@ public class InventoryTest {
     @Test
     public void itemIsGoneFromInventoryAfterUseTest(){
         Inventory inventory = new Inventory();
-        Equipment sword = new Equipment("Test Sword", ItemType.WEAPON, 1, 10);
+        Equipment sword = new Equipment("Test Sword", ItemType.WEAPON, 1, 10, 10);
         Consumable potion = new Consumable("small Potion", ItemType.POTION, 1, new HealingEffect(10));
 
         inventory.addItem(potion);

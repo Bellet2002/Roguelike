@@ -24,6 +24,7 @@ public class ItemTest {
         assertEquals(1, weapon.getLevelRequirement());
         assertEquals(ItemType.WEAPON, weapon.getType());
         assertEquals(10, weapon.getStat());
+        assertEquals(3, weapon.getDurability());
     }
 
     @Test
@@ -48,7 +49,7 @@ public class ItemTest {
     }
 
     @Test
-    public void testConsumableIsEmptyWhenUsed() {
+    public void testEmptyConsumableDoesNothing() {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
         player.takeDamage(30); //100 - 30 = 70
@@ -65,7 +66,7 @@ public class ItemTest {
     @Test
     public void testItemCannotBeUsedBelowLevelRequirement() {
         GameMap map = new GameMap(false);
-        Character player = new Player("Player", 100, 2, new Location(map.getTile(0, 0), map));
+        Character player = new Player("Player", 100, 1, new Location(map.getTile(0, 0), map));
 
         AbstractItem potion = new Consumable("Healing Potion", ItemType.POTION, 5, new HealingEffect(20));
         assertFalse(potion.canUse(player));
@@ -76,7 +77,7 @@ public class ItemTest {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 5, new Location(map.getTile(0, 0), map));
 
-        AbstractItem armor = new Equipment("Armor", ItemType.ARMOR, 5, 10);
+        AbstractItem armor = new Equipment("Armor", ItemType.ARMOR, 5, 10, 10);
         assertTrue(armor.canUse(player));
     }
 
@@ -85,12 +86,13 @@ public class ItemTest {
         GameMap map = new GameMap(false);
         Character player = new Player("Player", 100, 6, new Location(map.getTile(0, 0), map));
 
-        AbstractItem sword = new WeaponEquipment("Sword", 5, 10, 3);
-        assertTrue(sword.canUse(player));
+        AbstractItem armor = new Equipment("Armor", ItemType.ARMOR, 5, 10, 10);
+        assertTrue(armor.canUse(player));
     }
 
     @Test
     public void testWeaponAttackReducesEnemyHp() {
+        Player player = new Player("Hero", 100, 5, null);
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 30, 3);
         GameMap map = new GameMap(false);
         Enemy goblin = new Enemy(
@@ -104,13 +106,14 @@ public class ItemTest {
                             )
         );
 
-        sword.attack(goblin);
+        sword.attack(goblin, player);
 
         assertEquals(70, goblin.getHp());
     }
 
     @Test
     public void testWeaponDurabilityDecreasesOnAttack() {
+        Player player = new Player("Hero", 100, 5, null);
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 3);
         GameMap map = new GameMap(false);
         Enemy goblin = new Enemy(
@@ -125,17 +128,60 @@ public class ItemTest {
         );
 
         assertEquals(3, sword.getDurability());
-        sword.attack(goblin);
+        sword.attack(goblin, player);
         assertEquals(2, sword.getDurability());
-        sword.attack(goblin);
+        sword.attack(goblin, player);
         assertEquals(1, sword.getDurability());
     }
 
     @Test
-    public void testPlayerCannotUseBrokenWeapon() {
+    public void testWeaponDurabilityIsNotNegativeAfterAttack() {
         Player player = new Player("Hero", 100, 5, null);
+        WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0); 
+        GameMap map = new GameMap(false);
+        Enemy goblin = new Enemy(
+                "Goblin",
+                50,
+                1,
+                new Location(map.getTile(0, 0), map),
+                new EnemyPersonality(
+                    new PatrollingBehavior(map),
+                    new ChaseBehavior()
+                )
+        );
+
+        sword.attack(goblin, player);
+        assertEquals(0, sword.getDurability());
+    }
+
+    @Test
+    public void testWeaponIsBroken() {
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0); 
 
         assertTrue(sword.isBroken());
+    }
+
+    @Test
+    public void testPlayerAboveLevelWithBrokenSword() {
+        Player player = new Player("Hero", 100, 5, null);
+        WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 0);
+
+        assertFalse(sword.canUse(player));
+    }
+
+    @Test
+    public void testPlayerUnderLevelWithNotBrokenSword() {
+        Player player = new Player("Hero", 100, 1, null);
+        WeaponEquipment sword = new WeaponEquipment("Sword", 5, 10, 3);
+
+        assertFalse(sword.canUse(player));
+    }
+
+    @Test
+    public void testPlayerCanUseWeapon() {
+        Player player = new Player("Hero", 100, 5, null);
+        WeaponEquipment sword = new WeaponEquipment("Sword", 5, 10, 3);
+
+        assertTrue(sword.canUse(player));
     }
 }

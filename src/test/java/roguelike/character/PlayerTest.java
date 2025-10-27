@@ -81,7 +81,7 @@ public class PlayerTest {
                         new Location(map.getTile(0,0), map),
                         new EnemyPersonality(new PatrollingBehavior(map),
                         new ChaseBehavior()));
-        test.attack(enemy);
+        test.attack(enemy, test);
 
         assertEquals(enemy.getMaxHp() - 10, enemy.getHp());
     }
