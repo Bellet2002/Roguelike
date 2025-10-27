@@ -13,7 +13,7 @@ import roguelike.character.Character.Direction;
 public class LocationTest {
   @Test
   void testGetDistance() {
-    GameMap map = new GameMap(true);
+    GameMap map = GameMap.createGameMap(false);
     Location from = new Location(map.getTile(0, 0), map);
     Location to = new Location(map.getTile(0, 6), map);
     assertEquals(6, from.getDistance(to));
@@ -26,14 +26,14 @@ public class LocationTest {
   // Getters-testerna är skrivna av ChatGpt. Bra med kommentarer på testerna.
   @Test
   void testGetMap() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Location from = new Location(map.getTile(0, 0), map);
     assertEquals(map, from.getMap(), "Location should return the correct map");
   }
 
   @Test
   void testGetTile() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Tile tile = map.getTile(0, 0);
     Location from = new Location(tile, map);
     assertEquals(tile, from.getTile(), "Location should return the correct tile");
@@ -41,14 +41,14 @@ public class LocationTest {
 
   @Test
   void testGetX() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Location from = new Location(map.getTile(3, 7), map);
     assertEquals(3, from.getX(), "Location.getX() should return the tile's X coordinate");
   }
 
   @Test
   void testGetY() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Location from = new Location(map.getTile(3, 7), map);
     assertEquals(7, from.getY(), "Location.getY() should return the tile's Y coordinate");
   }
@@ -59,7 +59,7 @@ public class LocationTest {
   // Den la till far själv.
   @Test
   void testIsNeighbour() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Location center = new Location(map.getTile(5, 5), map);
     Location up = new Location(map.getTile(5, 4), map);
     assertTrue(center.isNeighbour(up), "Up tile should be neighbour");
@@ -76,7 +76,7 @@ public class LocationTest {
   // Liknande ovan, mycket kod inte särskilt komplicerat. Den löste båda bra.
   @Test
   void testMove() {
-    GameMap map = new GameMap(false);
+    GameMap map = GameMap.createGameMap(false);
     Location start = new Location(map.getTile(5, 5), map);
 
     start.move(Direction.UP);

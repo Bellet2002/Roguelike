@@ -38,7 +38,7 @@ public class ItemTest {
 
     @Test
     public void testConsumableWithHealingEffectHealsCorrectly() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
         player.takeDamage(30); //100 - 30 = 70
 
@@ -49,7 +49,7 @@ public class ItemTest {
 
     @Test
     public void testConsumableIsEmptyWhenUsed() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Character player = new Player("Player", 100, 3, new Location(map.getTile(0, 0), map));
         player.takeDamage(30); //100 - 30 = 70
 
@@ -64,7 +64,7 @@ public class ItemTest {
 
     @Test
     public void testItemCannotBeUsedBelowLevelRequirement() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Character player = new Player("Player", 100, 2, new Location(map.getTile(0, 0), map));
 
         AbstractItem potion = new Consumable("Healing Potion", ItemType.POTION, 5, new HealingEffect(20));
@@ -73,7 +73,7 @@ public class ItemTest {
 
     @Test
     public void testItemCanBeUsedExactlyAtLevelRequirement() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Character player = new Player("Player", 100, 5, new Location(map.getTile(0, 0), map));
 
         AbstractItem armor = new Equipment("Armor", ItemType.ARMOR, 5, 10);
@@ -82,7 +82,7 @@ public class ItemTest {
 
     @Test
     public void testItemCanBeUsedAboveLevelRequirement() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Character player = new Player("Player", 100, 6, new Location(map.getTile(0, 0), map));
 
         AbstractItem sword = new WeaponEquipment("Sword", 5, 10, 3);
@@ -92,7 +92,7 @@ public class ItemTest {
     @Test
     public void testWeaponAttackReducesEnemyHp() {
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 30, 3);
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Enemy goblin = new Enemy(
                             "Goblin",
                             100,
@@ -112,7 +112,7 @@ public class ItemTest {
     @Test
     public void testWeaponDurabilityDecreasesOnAttack() {
         WeaponEquipment sword = new WeaponEquipment("Sword", 1, 10, 3);
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Enemy goblin = new Enemy(
                 "Goblin",
                 50,

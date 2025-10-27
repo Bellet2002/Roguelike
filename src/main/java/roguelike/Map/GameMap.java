@@ -26,19 +26,23 @@ public class GameMap {
 
   private record TileDistance(Tile tile, int distance) {}
 
+  private GameMap() {}
+
   /**
    * Generates a map with or without random elements.
    * 
    * @param randomized if true then map has random elements, else false
    */
-  public GameMap(boolean randomized) {
-    generateMap();
+  public static GameMap createGameMap(boolean randomized) {
+    GameMap map = new GameMap();
+    map.generateMap();
     if (randomized) {
-      generateRandomTerrain(TileType.MOUNTAIN, 1, 2, 0.8);
-      generateRandomTerrain(TileType.WATER, 2, 4, 0.5);
-      generateRandomTerrain(TileType.FOREST, 3, 5, 0.25);
+      map.generateRandomTerrain(TileType.MOUNTAIN, 1, 2, 0.8);
+      map.generateRandomTerrain(TileType.WATER, 2, 4, 0.5);
+      map.generateRandomTerrain(TileType.FOREST, 3, 5, 0.25);
     }
-    generateRoad();
+    map.generateRoad();
+    return map;
   }
 
   private void generateMap() {
@@ -193,7 +197,6 @@ public class GameMap {
     if (x < width - 1) {
       result.add(mapTiles.get(y).get(x + 1));
     }
-
     return result;
   }
 

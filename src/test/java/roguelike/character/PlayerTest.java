@@ -18,7 +18,7 @@ public class PlayerTest {
 
     @Test
     public void playerShouldInheritCharacterAttributes() {
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("Hero", VALID_HP, VALID_LEVEL, new Location(map.getTile(0, 0), map));
         assertEquals("Hero", test.getName());
         assertEquals(VALID_HP, test.getHp());
@@ -27,7 +27,7 @@ public class PlayerTest {
 
     @Test
     public void playerCanLevelUp(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("Hero", VALID_HP, VALID_LEVEL, new Location(map.getTile(0, 0), map));
         test.levelUp();
         assertEquals(VALID_LEVEL + 1, test.getLevel());
@@ -35,7 +35,7 @@ public class PlayerTest {
 
     @Test
     public void contructorTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("Test", VALID_HP, VALID_LEVEL, new Location(map.getTile(0, 0), map));
         assertEquals(VALID_HP, test.getHp());
         assertEquals("Test", test.getName());
@@ -44,7 +44,7 @@ public class PlayerTest {
 
     @Test
     public void CharacterStartingPositionTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player chara = new Player("Test", VALID_HP, new Location(map.getTile(0,0), map));
 
         assertEquals(0, chara.getLocation().getX());
@@ -53,7 +53,7 @@ public class PlayerTest {
 
     @Test
     public void CharacterCanTakeDamageTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
 
         test.takeDamage(100);
@@ -64,7 +64,7 @@ public class PlayerTest {
 
     @Test
     public void CharacterCanDie(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
 
         test.takeDamage(VALID_HP);
@@ -75,7 +75,7 @@ public class PlayerTest {
 
     @Test
     public void characterCanAttack(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("Hero", VALID_HP, new Location(map.getTile(0,0), map));
         Enemy enemy = new Enemy("Enemy", VALID_HP, VALID_LEVEL,
                         new Location(map.getTile(0,0), map),
@@ -93,7 +93,7 @@ public class PlayerTest {
 
     @Test
     public void leftMovementTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player chara = new Player("Test", VALID_HP, new Location(map.getTile(1,0), map));
 
         chara.move(Direction.LEFT);
@@ -103,7 +103,7 @@ public class PlayerTest {
 
     @Test
     public void rightMovementTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player chara = new Player("Test", VALID_HP, new Location(map.getTile(0,0), map));
 
         chara.move(Direction.RIGHT);
@@ -112,7 +112,7 @@ public class PlayerTest {
 
     @Test
     public void upMovementTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player chara = new Player("Test", VALID_HP, new Location(map.getTile(0,1), map));
 
         chara.move(Direction.UP);
@@ -121,7 +121,7 @@ public class PlayerTest {
 
     @Test
     public void downMovementTest(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player chara = new Player("Test", VALID_HP, new Location(map.getTile(0,0), map));
 
         chara.move(Direction.DOWN);
@@ -131,7 +131,7 @@ public class PlayerTest {
 
     @Test
     public void characterCantMoveUpOutsideMap(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         test.move(Direction.UP);
         
@@ -141,7 +141,7 @@ public class PlayerTest {
 
     @Test
     public void characterCantMoveLeftOutsideMap(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map));
         test.move(Direction.LEFT);
         
@@ -151,7 +151,7 @@ public class PlayerTest {
 
     @Test
     public void playerCanChangeValidWeapon(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map)); 
         
         WeaponEquipment sword = new WeaponEquipment("Better Sword", 1 ,10 ,100);
@@ -166,7 +166,7 @@ public class PlayerTest {
 
     @Test
     public void usingEffectAddsToPlayer(){
-        GameMap map = new GameMap(false);
+        GameMap map = GameMap.createGameMap(false);
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map)); 
 
     }
