@@ -87,6 +87,11 @@ public class PlayerTest {
     }
 
     @Test
+    public void characterCanHeal(){
+
+    }
+
+    @Test
     public void leftMovementTest(){
         GameMap map = new GameMap(false);
         Player chara = new Player("Test", VALID_HP, new Location(map.getTile(1,0), map));
@@ -165,4 +170,11 @@ public class PlayerTest {
         Player test = new Player("name", VALID_HP, new Location(map.getTile(0,0), map)); 
 
     }
+
+    @Test
+    public void effectExpires(){
+
+    }
+
+
 }

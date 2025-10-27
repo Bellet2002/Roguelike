@@ -1,6 +1,7 @@
 package roguelike.character;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import roguelike.item.Consumable;
@@ -11,7 +12,7 @@ public class Inventory {
     private HashMap<Consumable, Integer> consumable = new HashMap<>();
     private HashMap<Equipment, Integer> equipment = new HashMap<>();
 
-    public void addItem(List<Item> items){
+    public void addItem(HashSet<Item> items){
         for(Item i : items){
             if(i instanceof Consumable item){
                 addItem(item);

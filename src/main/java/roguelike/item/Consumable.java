@@ -23,18 +23,4 @@ public class Consumable extends AbstractItem {
             effect.apply(player);
         }
     }
-
-    
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getType(), getEffect());
-    }
-
-    @Override
-    public boolean equals(Object obj){
-        if(obj instanceof Consumable consumable){
-            return getName().equals(consumable.getName());
-        }
-        return false;
-    }
 }
