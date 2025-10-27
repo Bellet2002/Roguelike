@@ -33,7 +33,7 @@ public class Player extends Character{
     }
 
     @Override
-    public void attack(Character enemy){
+    public void attack(Character enemy, Player player){
         //should check the effect for attacking to eventually boost attack
         int baseDamage = this.getWeapon().getStat();
         int addedDmg = 0;

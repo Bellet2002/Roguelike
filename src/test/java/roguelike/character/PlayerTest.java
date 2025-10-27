@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import roguelike.character.Character.Direction;
 import roguelike.enemy.Enemy;
-import roguelike.enemy.enemybehavior.ChaseBehavior;
-import roguelike.enemy.enemybehavior.EnemyPersonality;
-import roguelike.enemy.enemybehavior.PatrollingBehavior;
+import roguelike.enemy.enemyBehavior.ChaseBehavior;
+import roguelike.enemy.enemyBehavior.EnemyPersonality;
+import roguelike.enemy.enemyBehavior.PatrollingBehavior;
 import roguelike.item.WeaponEquipment;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
@@ -81,7 +81,7 @@ public class PlayerTest {
                         new Location(map.getTile(0,0), map),
                         new EnemyPersonality(new PatrollingBehavior(map),
                         new ChaseBehavior()));
-        test.attack(enemy);
+        test.attack(enemy, test);
 
         assertEquals(enemy.getMaxHp() - 10, enemy.getHp());
     }
