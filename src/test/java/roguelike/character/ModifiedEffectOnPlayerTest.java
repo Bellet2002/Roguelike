@@ -1,6 +1,7 @@
 package roguelike.character;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import roguelike.effect.AttackEffect;
 import roguelike.effect.DefenseEffect;
@@ -9,10 +10,13 @@ import roguelike.enemy.Enemy;
 import roguelike.enemy.enemybehavior.ChaseBehavior;
 import roguelike.enemy.enemybehavior.EnemyPersonality;
 import roguelike.enemy.enemybehavior.PatrollingBehavior;
+import roguelike.item.Consumable;
+import roguelike.item.ItemType;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class ModifiedEffectOnPlayerTest {
     public static final int NEGATIVE_EFFECT = -5;
@@ -42,6 +46,26 @@ public class ModifiedEffectOnPlayerTest {
 
         player.takeDamage(10);
         assertEquals(player.getMaxHp()-10, player.getHp());
+    }
+
+    @Test
+    @DisplayName("While healingItem has value it should be able to be used")
+    public void healingCanBeUsedSeveralTimes(){
+        player.takeDamage(DAMAGE);
+        Consumable potion = new Consumable("Healing", ItemType.POTION, 1, new HealingEffect(55));
+        player.getInventory().addItem(potion);
+
+        player.useItem(potion);
+        assertEquals(player.getMaxHp(), player.getHp());
+
+        //The potion can heal 55 hp but only 50 was used 55-50
+        assertEquals(5,player.getInventory().getItem("Healing").getEffect().getAmount());
+
+        player.takeDamage(DAMAGE);
+        player.useItem(potion);
+
+        assertEquals(player.getMaxHp() - DAMAGE + 5, player.getHp());
+        assertFalse(player.getInventory().consumableExists(potion));
     }
 
     @Test
@@ -76,13 +100,42 @@ public class ModifiedEffectOnPlayerTest {
     }
 
     @Test
-    public void healingCancelsOutDefenceDebuffTest(){}
+    public void healingCancelsOutDefenceDebuffTest(){
+        player.addEffect(new HealingEffect(POSITIVE_EFFECT));
+        player.addEffect(new DefenseEffect(NEGATIVE_EFFECT));
+
+        player.takeDamage(DAMAGE);
+
+        assertEquals(player.getMaxHp() - DAMAGE, player.getHp());
+    }
 
     @Test
-    public void buffedAttackDefenceAndHealingRaiseAttackTest(){}
+    @DisplayName("buff/debuff cancels out")
+    public void buffedAttackCancelsOutDebuffedDefenceAndViceversa(){
+        player.addEffect(new AttackEffect(POSITIVE_EFFECT));
+        player.addEffect(new DefenseEffect(POSITIVE_EFFECT));
+        Consumable atkPotion = new Consumable("Attack Potion", ItemType.POTION, 1, new AttackEffect(POSITIVE_EFFECT));
+        player.getInventory().addItem(atkPotion);
+        player.useItem(atkPotion);
+    }
 
     @Test
-    public void deBuffedAttackAndDefenceTakeMoreDamageTest(){}
+    public void defenceBuffAndAttackBuffTest(){
+        Consumable item = new Consumable("Potion", ItemType.POTION, 1, new DefenseEffect(POSITIVE_EFFECT));
+
+        player.getInventory().addItem(item);
+        player.useItem(item);
+        player.addEffect(new AttackEffect(POSITIVE_EFFECT));
+
+        player.attack(enemy, player);
+        player.takeDamage(DAMAGE);
+
+        assertEquals(enemy.getMaxHp()- 20, enemy.getHp()); //baseAttack = 10, POSITIVE_EFFECT = 10
+        assertEquals(player.getMaxHp()-(DAMAGE-POSITIVE_EFFECT), player.getHp());
+    }
+
+    @Test
+    public void DefenceTest(){}
 
 
 

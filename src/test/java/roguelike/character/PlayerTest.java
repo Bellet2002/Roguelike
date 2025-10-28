@@ -46,7 +46,11 @@ public class PlayerTest {
         Player test = new Player("Test", VALID_HP, VALID_LEVEL, new Location(map.getTile(0, 0), map));
         assertEquals(VALID_HP, test.getHp());
         assertEquals("Test", test.getName());
-        assertEquals(VALID_LEVEL, test.getLevel() );
+        assertEquals(VALID_LEVEL, test.getLevel());
+
+        Player edgeCasePlayer = new Player("BadLevel", VALID_HP, -1,new Location(map.getTile(0, 0), map));
+        assertEquals(1, edgeCasePlayer.getLevel());
+
     }
 
     @Test

@@ -15,25 +15,19 @@ public class Inventory {
         for(Item i : items){
             if(i instanceof Consumable item){
                 addItem(item);
-            }
-            if(i instanceof Equipment item){
+            } else if(i instanceof Equipment item){
                 addItem(item);
             }
         }
     }
 
     public void addItem(Consumable item){
-        if(consumable.containsKey(item)){
-                    consumable.put(item, consumable.get(item)+1);
-                }
-                consumable.put(item, 1);
+        consumable.put(item, consumable.getOrDefault(item,0)+1);
     }
 
     public void addItem(Equipment item){
-        if(equipment.containsKey(item) && isnotNull(item)){
-            equipment.put(item, equipment.get(item)+1);
-            }
-        equipment.put(item, 1);
+        equipment.put(item, equipment.getOrDefault(item,0)+1);
+
     }
 
     public boolean consumableExists(Consumable item){

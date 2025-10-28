@@ -45,18 +45,36 @@ public class Player extends Character{
             } 
         }
         enemy.takeDamage(baseDamage+addedDmg);
+
+        clearExpiredEffects();
     }
 
     @Override
     public void takeDamage(int damage){
+        if(playerHasImmunity()){
+            return;
+        }
+
         int reducedDmg = 0;
         for (AbstractEffect effect : effects) {
             if(effect instanceof DefenseEffect dfnEffect && !dfnEffect.isExpired()){
                 reducedDmg += dfnEffect.getAmount();
             } 
         }
-        super.takeDamage(damage-reducedDmg);
+        int actualDamage = Math.max(0, damage - reducedDmg);
+        if(actualDamage>damage){
+            for(AbstractEffect effect: effects){
+                if(effect instanceof HealingEffect healing && healing.getAmount()>0){
+                    healing.expireEffect();
+                    actualDamage = damage;
+                }
+            }
+        }
+        super.takeDamage(actualDamage);
+
+        clearExpiredEffects();
     }
+
 
     public Inventory getInventory(){ return inventory; }
 
@@ -72,6 +90,7 @@ public class Player extends Character{
     @Override
     public void setWeapon(Weapon weapon){
         if(weapon instanceof WeaponEquipment w){
+            if(w == getWeapon()) return;
             if(inventory.equipmentExists(w)){
                 inventory.addItem(getWeapon());
                 inventory.use(w);
@@ -98,6 +117,34 @@ public class Player extends Character{
             healing.apply(this);
         }
         effects.add(effect);
+    }
+
+    private void clearExpiredEffects(){
+        effects.removeIf(AbstractEffect::isExpired);
+    }
+
+    private boolean playerHasImmunity(){
+        HealingEffect healingToUse = null;
+        DefenseEffect defenceToUse = null;
+
+        for (AbstractEffect e: effects){
+            if (healingToUse == null && e instanceof HealingEffect h && h.getAmount() > 0) {
+                healingToUse = h;
+            } else if (defenceToUse == null && e instanceof DefenseEffect d && d.getAmount() > 0) {
+                defenceToUse = d;
+            }
+            //To skip unnecesary looping
+            if (healingToUse != null && defenceToUse != null) break;
+        }
+        if(healingToUse != null && defenceToUse != null){
+            healingToUse.expireEffect();
+            defenceToUse.expireEffect();
+            clearExpiredEffects();
+            return true;
+        }
+
+        return false;
+
     }
 
 }
