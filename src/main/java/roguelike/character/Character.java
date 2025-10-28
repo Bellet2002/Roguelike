@@ -58,7 +58,7 @@ public abstract class Character {
     }
 
     public void heal(int amount) {
-        if (amount <= 0 || hp == maxHp) {
+        if (amount <= 0 || hp == maxHp || !isAlive()) {
             return;
         } 
 
@@ -82,7 +82,12 @@ public abstract class Character {
 
     public void setWeapon(Weapon weapon){ this.weapon = weapon;}
 
-    public boolean isAlive() { return isAlive; }
+    public boolean isAlive() { 
+        if (hp <= 0) {
+            isAlive = false;
+        }
+        return isAlive; 
+    }
 
     public void move(Direction direction){
         location.move(direction);
