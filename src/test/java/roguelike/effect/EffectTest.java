@@ -1,13 +1,31 @@
 package roguelike.effect;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
+import roguelike.character.Player;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
-import roguelike.character.Player;
 
 public class EffectTest {
+    //HealingEffect tests (equivalence class)
+    @Test
+    public void testHealingEffect() {
+        HealingEffect healing = new HealingEffect(20);
+
+        assertEquals(20, healing.getAmount());
+        assertFalse(healing.isExpired());
+    }
+
+    @Test
+    public void testExpiredHealingEffect() {
+        HealingEffect healing = new HealingEffect(20);
+
+        healing.expireEffect();
+        assertTrue(healing.isExpired());
+    }
 
     @Test
     public void testValidHealing() {
@@ -55,4 +73,59 @@ public class EffectTest {
         assertEquals(20, healing.getAmount()); //healing unused, stays the same
         assertEquals(100, player.getHp());
     }
+
+    //AttackEffect tests
+    @Test
+    public void testAttackEffect() {
+        AttackEffect attack = new AttackEffect(20);
+
+        assertEquals(20, attack.getAmount());
+        assertFalse(attack.isExpired());
+    }
+
+    @Test
+    public void testExpiredAttackEffect() {
+        AttackEffect attack = new AttackEffect(20);
+
+        attack.expireEffect();
+        assertTrue(attack.isExpired());
+    }
+
+    /*@Test
+    public void testAttackEffectIsApplied() {
+        GameMap map = GameMap.createGameMap(false);
+        Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
+        AttackEffect attack = new AttackEffect(20);
+
+        attack.apply(player);
+        //AssertEquals som på något sätt testar att player.attack() får högre attackDmg effter applicerad effekt
+    }*/
+
+    //DefenseEffect tests
+    @Test
+    public void testDefenseEffect() {
+        DefenseEffect defense = new DefenseEffect(20);
+
+        assertEquals(20, defense.getAmount());
+        assertFalse(defense.isExpired());
+    }
+
+    @Test
+    public void testExpiredDefenseEffect() {
+        DefenseEffect defense = new DefenseEffect(20);
+
+        defense.expireEffect();
+        assertTrue(defense.isExpired());
+    }
+
+    /*@Test
+    public void testDefenseEffectIsApplied() {
+        GameMap map = GameMap.createGameMap(false);
+        Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
+
+        //Defense finns inte men ifall vi antar att
+        //defense.apply(player); player def = def + defense.getAmount();
+        //AssertEquals som på något sätt testar att defense adderas efter applicerad effekt
+    }*/
+
 }

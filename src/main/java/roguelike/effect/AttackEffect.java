@@ -11,6 +11,8 @@ public class AttackEffect extends AbstractEffect {
     
     @Override
     public void apply(Character character) {
+        
+        
         if(character instanceof Player player){
             player.addEffect(this);
         }
