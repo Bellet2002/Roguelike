@@ -95,19 +95,20 @@ public class EffectTest {
         new HealingEffect(0).apply(player);
         new HealingEffect(-10).apply(player);
         
-        assertEquals(95, player.getHp()); 
+        assertEquals(80, player.getHp()); 
     }
 
     @Test //EK8
     public void testHealingDoesNotHealDeadPlayer() {
         GameMap map = GameMap.createGameMap(false);
-        Player player = new Player("Hero", 0, 1, new Location(map.getTile(0, 0), map));
+        Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
         HealingEffect healing = new HealingEffect(20);
+        player.takeDamage(100); //dead
 
         healing.apply(player);
-        assertEquals(20, healing.getAmount()); //healing unused, stays the same
         assertFalse(player.isAlive());
-        assertEquals(0, player.getHp());
+        assertEquals(20, healing.getAmount()); //healing unused, stays the same
+        assertEquals(0, player.getHp()); //player not healed
     }
 
     //AttackEffect tests
