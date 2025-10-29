@@ -42,7 +42,7 @@ public class EffectTest {
         assertTrue(healing.isEmpty());
     }
 
-    @Test //EK1
+    @Test //TC1
     public void testValidHealing() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -55,7 +55,7 @@ public class EffectTest {
         assertEquals(70, player.getHp());
     }
 
-    @Test //EK2
+    @Test //TC2
     public void testHealingHealsExactlyToMaxHp() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -65,10 +65,10 @@ public class EffectTest {
 
         healing.apply(player);
         assertEquals(0, healing.getAmount());
-        assertEquals(player.getHp(), player.getMaxHp());
+        assertEquals(player.getMaxHp(), player.getHp());
     }
 
-    @Test //EK3
+    @Test //TC3
     public void testHealingExceedsHp() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -81,7 +81,7 @@ public class EffectTest {
         assertEquals(player.getMaxHp(), player.getHp());
     }
 
-    @Test //EK4
+    @Test //TC4
     public void testHealingEdgeCaseMinimum() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -94,7 +94,7 @@ public class EffectTest {
         assertEquals(21, player.getHp());
     }
 
-    @Test //EK5
+    @Test //TC5
     public void testHealingWithFullHp() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -103,10 +103,10 @@ public class EffectTest {
 
         healing.apply(player);
         assertEquals(20, healing.getAmount()); //healing unused, stays the same
-        assertEquals(100, player.getHp());
+        assertEquals(player.getMaxHp(), player.getHp());
     }
 
-    @Test //EK6
+    @Test //TC6
     public void testEmptyHealingEffectDoesNothing() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -118,7 +118,7 @@ public class EffectTest {
         assertEquals(80, player.getHp());
     }
 
-    @Test //EK7
+    @Test //TC7
     public void testInvalidHealingAmount() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
@@ -130,35 +130,43 @@ public class EffectTest {
         assertEquals(80, player.getHp());
     }
 
-    @Test //EK8
+    @Test //TC8
     public void testHealingDoesNotHealDeadPlayer() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
-        player.takeDamage(100); //dead
-        
         HealingEffect healing = new HealingEffect(20);
 
+        assertTrue(player.isAlive());
+
+        player.takeDamage(100); 
+        assertFalse(player.isAlive()); //dead
+        
         healing.apply(player);
-        assertFalse(player.isAlive());
-        assertEquals(20, healing.getAmount()); //healing unused, stays the same
+        assertFalse(player.isAlive()); //still dead
+        assertEquals(20, healing.getAmount()); //healing unused
         assertEquals(0, player.getHp()); //player not healed
     }
 
-    @Test //EK10
+    @Test //TC10
     public void testExpiredHealingEffectDoesNotHeal() {
         GameMap map = GameMap.createGameMap(false);
         Player player = new Player("Hero", 100, 1, new Location(map.getTile(0, 0), map));
-        player.takeDamage(20);
-
         HealingEffect healing = new HealingEffect(20);
+        player.takeDamage(5); //hp = 95
 
         assertFalse(healing.isExpired());
+
+        healing.apply(player);
+        assertEquals(15, healing.getAmount());
+        assertEquals(player.getMaxHp(), player.getHp());
+
+        player.takeDamage(10);
         healing.expireEffect();
 
         healing.apply(player);
         assertTrue(healing.isExpired());
-        assertEquals(20, healing.getAmount()); //healing unused, stays the same
-        assertEquals(80, player.getHp());
+        assertEquals(15, healing.getAmount()); //healing unused, stays the same
+        assertEquals(90, player.getHp()); //player not healed
     }
 
     //AttackEffect tests
