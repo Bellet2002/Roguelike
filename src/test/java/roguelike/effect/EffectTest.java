@@ -49,8 +49,10 @@ public class EffectTest {
         player.takeDamage(50); //simulates player taking damage, setHP = hp - damage
         
         HealingEffect healing = new HealingEffect(20);
+        assertFalse(healing.isExpired());
 
         healing.apply(player); //applies HealingEffect -> character.heal(20)
+        assertTrue(healing.isEmpty());
         assertEquals(0, healing.getAmount());
         assertEquals(70, player.getHp());
     }
@@ -160,7 +162,7 @@ public class EffectTest {
         assertEquals(15, healing.getAmount());
         assertEquals(player.getMaxHp(), player.getHp());
 
-        player.takeDamage(10);
+        player.takeDamage(10); //hp = 90
         healing.expireEffect();
 
         healing.apply(player);
