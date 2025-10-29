@@ -4,6 +4,8 @@ import roguelike.enemy.Enemy;
 import roguelike.item.Weapon;
 import roguelike.map.Location;
 
+import java.util.Objects;
+
 public abstract class Character {
     private final String name;
     private final int maxHp;
@@ -29,12 +31,18 @@ public abstract class Character {
     }
 
     public Character(String name, int hp, int level, Location location){
-        this.name = name;
-        this.hp = hp;
-        this.maxHp = hp;
-        if( level > 0) { this.level = level; }
-            else { this.level = 1; }
+        this.name = Objects.requireNonNull(name, "name cannot be null");
+        if(hp>=1){
+            this.hp = hp;
+            this.maxHp = hp;
+        }else{
+            this.hp = 100;
+            this.maxHp = 100;
+        }
+        if( level > 0) { this.level = level;
+        } else { this.level = 1; }
 
+        //this.location = Objects.requireNonNull(location, "Location cannot be a null");
         this.location = location;
     }
 
