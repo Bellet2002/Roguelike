@@ -44,7 +44,20 @@ public class Player extends Character{
                 addedDmg += atkEffect.getAmount();
             } 
         }
-        enemy.takeDamage(baseDamage+addedDmg);
+
+        int actualDamage = baseDamage + addedDmg;
+
+        if(actualDamage<baseDamage){
+            for(AbstractEffect effect: effects){
+                if(effect instanceof DefenseEffect defenseEffect && defenseEffect.getAmount()>0){
+                    defenseEffect.expireEffect();
+                    actualDamage = baseDamage;
+                    break;
+                }
+            }
+        }
+
+        enemy.takeDamage(actualDamage);
 
         clearExpiredEffects();
     }
@@ -62,11 +75,17 @@ public class Player extends Character{
             } 
         }
         int actualDamage = Math.max(0, damage - reducedDmg);
+
         if(actualDamage>damage){
             for(AbstractEffect effect: effects){
                 if(effect instanceof HealingEffect healing && healing.getAmount()>0){
                     healing.expireEffect();
                     actualDamage = damage;
+                    break;
+                }else if (effect instanceof AttackEffect attackEffect && attackEffect.getAmount()>0){
+                    attackEffect.expireEffect();
+                    actualDamage = damage;
+                    break;
                 }
             }
         }
@@ -100,16 +119,17 @@ public class Player extends Character{
     }
 
     public void useItem(Consumable item){
+        if(!inventory.consumableExists(item)) return;
+
         if(item.getEffect() instanceof HealingEffect effect){
             item.use(this);
             if(effect.getAmount()<= 0) inventory.use(item);
             return;
         }
 
-        if(inventory.consumableExists(item)){
-            item.use(this);
-            inventory.use(item);
-        }
+        item.use(this);
+        inventory.use(item);
+
     }
 
     public void addEffect(AbstractEffect effect) {
