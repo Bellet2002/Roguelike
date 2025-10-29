@@ -31,7 +31,7 @@ public class Player extends Character{
     }
 
     void levelUp(){
-        level++;
+        this.setLevel(getLevel() + 1);
     }
 
     @Override

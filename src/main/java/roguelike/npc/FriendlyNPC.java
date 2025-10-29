@@ -25,14 +25,14 @@ public class FriendlyNPC extends AbstractNPC {
     public FriendlyNPC(String name, HashSet<Item> lootItems, NPCBehavior behavior) {
         super(name);
         this.shopItems = null;
-        this.lootItems = lootItems;
+        this.lootItems = lootItems == null ? null : new HashSet<>(lootItems);
         this.behavior = behavior;
     }
 
     //Constructor for NPCs carrying shop items
     public FriendlyNPC(String name, HashMap<Item, Integer> shopItems, NPCBehavior behavior) {
         super(name);
-        this.shopItems = shopItems;
+        this.shopItems = shopItems == null ? null : new HashMap<>(shopItems);
         this.lootItems = null;
         this.behavior = behavior;
     }
