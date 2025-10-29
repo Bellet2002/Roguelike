@@ -37,12 +37,32 @@ public class FriendlyNPC extends AbstractNPC {
         this.behavior = behavior;
     }
 
-    public HashMap<Item, Integer> getShopItems() {
-        return shopItems;
+    public void addLootItem(Item item) {
+        if (lootItems != null) {
+            lootItems.add(item);
+        }
+    }
+
+    public void addShopItem(Item item, int price) {
+        if (shopItems != null) {
+            shopItems.put(item, price);
+        }
+    }
+
+    public void removeItem(Item item) {
+        if (lootItems != null) {
+            lootItems.remove(item);
+        } else if (shopItems != null) {
+            shopItems.remove(item);  
+        }
     }
 
     public HashSet<Item> getLootItems() {
         return lootItems;
+    }
+
+    public HashMap<Item, Integer> getShopItems() {
+        return shopItems;
     }
 
     @Override

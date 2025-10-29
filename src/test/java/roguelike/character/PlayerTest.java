@@ -22,6 +22,7 @@ import roguelike.map.Location;
 public class PlayerTest {
     final int VALID_HP = 500;
     final int VALID_LEVEL = 10;
+    final int INVALID_HP = 0;
 
     @Test
     public void playerShouldInheritCharacterAttributes() {
@@ -48,7 +49,7 @@ public class PlayerTest {
         assertEquals("Test", test.getName());
         assertEquals(VALID_LEVEL, test.getLevel());
 
-        Player edgeCasePlayer = new Player("BadLevel", VALID_HP, -1,new Location(map.getTile(0, 0), map));
+        Player edgeCasePlayer = new Player("Testing", INVALID_HP, -1,new Location(map.getTile(0, 0), map));
         assertEquals(1, edgeCasePlayer.getLevel());
 
     }

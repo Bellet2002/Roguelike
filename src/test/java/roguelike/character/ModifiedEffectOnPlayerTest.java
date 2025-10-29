@@ -15,8 +15,7 @@ import roguelike.item.ItemType;
 import roguelike.map.GameMap;
 import roguelike.map.Location;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ModifiedEffectOnPlayerTest {
     public static final int NEGATIVE_EFFECT = -5;
@@ -24,6 +23,7 @@ public class ModifiedEffectOnPlayerTest {
     public static final int POSITIVE_EFFECT = 10;
     final int VALID_HP = 100;
     final int VALID_LEVEL = 10;
+    final int PLAYER_ATTACK = 10;
 
     Player player;
     Enemy enemy;
@@ -112,11 +112,23 @@ public class ModifiedEffectOnPlayerTest {
     @Test
     @DisplayName("buff/debuff cancels out")
     public void buffedAttackCancelsOutDebuffedDefenceAndViceversa(){
-        player.addEffect(new AttackEffect(POSITIVE_EFFECT));
-        player.addEffect(new DefenseEffect(POSITIVE_EFFECT));
-        Consumable atkPotion = new Consumable("Attack Potion", ItemType.POTION, 1, new AttackEffect(POSITIVE_EFFECT));
-        player.getInventory().addItem(atkPotion);
-        player.useItem(atkPotion);
+        player.addEffect(new DefenseEffect(NEGATIVE_EFFECT));
+        Consumable atkBuff = new Consumable("Attack Buff", ItemType.POTION, 1, new AttackEffect(POSITIVE_EFFECT));
+        player.getInventory().addItem(atkBuff);
+        player.useItem(atkBuff);
+
+        player.takeDamage(DAMAGE);
+        assertEquals(player.getMaxHp()-DAMAGE, player.getHp());
+        assertNull(player.getInventory().getItem("Attack Buff"));
+
+        player.addEffect(new AttackEffect(NEGATIVE_EFFECT));
+        Consumable defDebuff = new Consumable("Defence Debuff", ItemType.POTION, 1, new DefenseEffect(POSITIVE_EFFECT));
+        player.getInventory().addItem(defDebuff);
+        player.useItem(defDebuff);
+
+        player.attack(enemy, player);
+        assertEquals(enemy.getMaxHp()-PLAYER_ATTACK, enemy.getHp());
+        assertNull(player.getInventory().getItem("Defence Debuff"));
     }
 
     @Test
@@ -134,8 +146,6 @@ public class ModifiedEffectOnPlayerTest {
         assertEquals(player.getMaxHp()-(DAMAGE-POSITIVE_EFFECT), player.getHp());
     }
 
-    @Test
-    public void DefenceTest(){}
 
 
 
