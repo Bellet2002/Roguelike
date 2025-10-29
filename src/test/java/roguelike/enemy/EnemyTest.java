@@ -92,7 +92,7 @@ public class EnemyTest {
   }
 
   @Test
-  void testFleeBehaviorUp() {
+  void testFleeBehaviorDown() {
     GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
@@ -110,7 +110,7 @@ public class EnemyTest {
   }
 
   @Test
-  void testFleeBehaviorDown() {
+  void testFleeBehaviorUp() {
     GameMap map = GameMap.createGameMap(false);
     Enemy squirrel = new Enemy(
                             "Squirrel",
@@ -122,7 +122,11 @@ public class EnemyTest {
                                 new StandingBehavior()
                             )
     );
-    Player character = new Player("Villain", 50, new Location(map.getTile(10, 15), map));
+    Player character = new Player("Villain", 50, new Location(map.getTile(10, 21), map));
+    Location location = squirrel.getLocation();
+    squirrel.getPersonality().behavior(squirrel, character);
+    assertEquals(squirrel.getLocation().getTile(), location.getTile());
+    character.move(Direction.UP);
     squirrel.getPersonality().behavior(squirrel, character);
     assertTrue(squirrel.getLocation().getY() < 10);
   }
@@ -241,5 +245,12 @@ public class EnemyTest {
     }
     goblin.getPersonality().behavior(goblin, character);
     assertFalse(character.getLocation().isNeighbour(goblin.getLocation()));
+
+    goblin.takeDamage(31);
+    assertFalse(goblin.isAlive());
+
+    for (int i = 0; i < 20; i++) {
+      character.move(Direction.LEFT);
+    }
   }
 }
