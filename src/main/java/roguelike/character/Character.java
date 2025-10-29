@@ -5,10 +5,10 @@ import roguelike.item.Weapon;
 import roguelike.map.Location;
 
 public abstract class Character {
-    final private String name;
+    private final String name;
     private final int maxHp;
     private int hp;
-    int level;
+    private int level;
     private Location location;
     private Weapon weapon;
     private boolean isAlive = true;
@@ -58,7 +58,7 @@ public abstract class Character {
     }
 
     public void heal(int amount) {
-        if (amount <= 0 || hp == maxHp || !isAlive()) {
+        if (amount <= 0 || hp == maxHp) {
             return;
         } 
 
@@ -82,12 +82,9 @@ public abstract class Character {
 
     public void setWeapon(Weapon weapon){ this.weapon = weapon;}
 
-    public boolean isAlive() { 
-        if (hp <= 0) {
-            isAlive = false;
-        }
-        return isAlive; 
-    }
+    public boolean isAlive() { return isAlive; }
+
+    public void setLevel(int newLevel) { this.level = newLevel; }
 
     public void move(Direction direction){
         location.move(direction);
