@@ -59,7 +59,8 @@ public class ItemTest {
 
         potion.use(player);
         assertEquals(90, player.getHp());
-        potion.use(player);
+        potion.use(player); //try using again
+        assertTrue(potion.getEffect().isEmpty());
         assertEquals(90, player.getHp()); //empty potion does not heal
     }
 

@@ -10,12 +10,14 @@ public class HealingEffect extends AbstractEffect {
 
     @Override
     public void apply(Character character) {
-        int oldHp = character.getHp();
-        character.heal(amount);
+        if (!isEmpty) {
+            int oldHp = character.getHp();
+            character.heal(amount);
 
-        int healed = character.getHp() - oldHp;
-        if (character.getHp() > oldHp) {
-            amount -= healed;
+            int healed = character.getHp() - oldHp;
+            if (character.getHp() > oldHp) {
+                amount -= healed;
+            }
         }
     }
 }
